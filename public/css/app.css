@@ -15,6 +15,209 @@ h6,
   color: #001926;
 }
 
+body {
+  margin-top: 60px !important;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  background: white;
+  z-index: 10;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.header__content {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+}
+
+.header__list {
+  padding: 10px 0;
+  -webkit-transition: 0.4s ease;
+  transition: 0.4s ease;
+  will-change: padding;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  margin: 0;
+  -webkit-box-pack: end;
+          justify-content: flex-end;
+  min-height: 60px;
+  position: relative;
+}
+
+.header__list--small {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  padding: 0;
+}
+
+.header__list--small li {
+  padding-bottom: 10px;
+}
+
+.header__list li {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+}
+
+.header__list li:last-child a {
+  margin-right: 0;
+}
+
+.header__list-item {
+  color: #001926;
+  margin-right: 40px;
+  font-family: Roboto, sans-serif;
+  list-style: none;
+  font-weight: 900;
+  -webkit-transition: 0.2s ease color;
+  transition: 0.2s ease color;
+  will-change: color;
+}
+
+.header__list-item--small {
+  display: block !important;
+  margin-right: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .header__list-item {
+    display: none;
+  }
+}
+
+.header__list-item--show {
+  display: block !important;
+  margin-right: 60px;
+}
+
+.header__list-item:hover {
+  color: #025D8C;
+  text-decoration: none;
+}
+
+.header__hamburger {
+  display: block;
+  width: 30px;
+  height: 2px;
+  background: #001926;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  will-change: background;
+  cursor: pointer;
+}
+
+.header__hamburger-menu {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: -100vh;
+  background: white;
+  padding: 15px;
+  opacity: 0;
+  -webkit-transition: 0.3s ease opacity;
+  transition: 0.3s ease opacity;
+  will-change: opacity;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.header__hamburger-menu.active {
+  top: 53px;
+  opacity: 100;
+}
+
+.header__hamburger.active {
+  background: none;
+}
+
+.header__hamburger.active:before {
+  top: 0;
+  background: #000;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+
+.header__hamburger.active:after {
+  top: 0;
+  background: #000;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.header__hamburger:before {
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  will-change: transform, top, background;
+  content: "";
+  width: 30px;
+  background: #001926;
+  height: 2px;
+  position: absolute;
+  right: 0;
+  top: calc(50% - 7px);
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.header__hamburger:after {
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  will-change: transform, top, background;
+  content: "";
+  width: 30px;
+  background: #001926;
+  height: 2px;
+  position: absolute;
+  right: 0;
+  top: calc(50% + 7px);
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.header__hamburger-wrap {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .header__hamburger-wrap {
+    display: block;
+  }
+}
+
+.header__logo {
+  max-height: 40px;
+}
+
+li {
+  list-style: none;
+}
+
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors

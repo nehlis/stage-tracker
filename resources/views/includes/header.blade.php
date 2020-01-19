@@ -1,56 +1,43 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<header class="header">
     <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">
-                @auth
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('home') }}">Home</a>
-                    </li>
+        <div class="header__content">
+            <ul class="header__list">
+                @auth()
+                    <li><a class="header__list-item header__list-item--show" href="/"><img draggable="false" class="header__logo" src="{{asset('images/stage-tracker.png')}}" alt=""></a></li>
+                    <li><a class="header__list-item" href="">Uren indienen</a></li>
+                    <li><a class="header__list-item" href="">Overzicht</a></li>
                 @endauth
             </ul>
-
-            <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto">
-                <!-- Authentication Links -->
-                @guest
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    </li>
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                    @endif
-                @else
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
-
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </div>
-                    </li>
+            <ul class="header__list header__list--right">
+                @auth()
+                    <li><a class="header__list-item" href="/profiel">Profiel</a></li>
+                    <li><a class="header__list-item" href="/logout">Uitloggen</a></li>
+                @endauth
+                @guest()
+                    <li><a class="header__list-item" href="/login">Inloggen</a></li>
                 @endguest
+                    <div class="header__hamburger-wrap">
+                        <div class="header__hamburger">
+                        </div>
+                    </div>
             </ul>
+            <div class="header__hamburger-menu">
+                <ul class="header__list header__list--small">
+                    @auth()
+                        <li><a class="header__list-item header__list-item--small" href="">Uren indienen</a></li>
+                        <li><a class="header__list-item header__list-item--small" href="">Overzicht</a></li>
+                    @endauth
+                </ul>
+                <ul class="header__list header__list--small">
+                    @auth()
+                        <li><a class="header__list-item header__list-item--small" href="/profiel">Profiel</a></li>
+                        <li><a class="header__list-item header__list-item--small" href="/logout">Uitloggen</a></li>
+                    @endauth
+                    @guest()
+                        <li><a class="header__list-item header__list-item--small" href="/login">Inloggen</a></li>
+                    @endguest
+                </ul>
+            </div>
         </div>
     </div>
-</nav>
+</header>

@@ -10,11 +10,19 @@
             </ul>
             <ul class="header__list header__list--right">
                 @auth()
-                    <li><a class="header__list-item" href="/profiel">Profiel</a></li>
-                    <li><a class="header__list-item" href="/logout">Uitloggen</a></li>
+                    <li><a class="header__list-item" href="">Profiel</a></li>
+
+                    <li>
+                        <a class="header__list-item" href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Uitloggen</a>
+                    </li>
+
+                    <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none;">
+                        @csrf
+                    </form>
+
                 @endauth
                 @guest()
-                    <li><a class="header__list-item" href="/login">Inloggen</a></li>
+                    <li><a class="header__list-item" href="{{route('login')}}">Inloggen</a></li>
                 @endguest
                     <div class="header__hamburger-wrap">
                         <div class="header__hamburger">

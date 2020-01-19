@@ -1976,17 +1976,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "WeekCalendarComponent",
   data: function data() {
     return {
       currentDate: new Date(),
-      selectedDate: new Date(),
-      offsetDate: new Date()
+      selectedDate: new Date(2020, 0, 19),
+      offsetDate: new Date(),
+      csrf: document.head.querySelector('meta[name="csrf-token"]').content
     };
   },
   methods: {
-    getMonth: function getMonth(month) {
+    // Turn 0 to 11 into string of month.
+    getMonthString: function getMonthString(month) {
       switch (month) {
         case 0:
           return "januari";
@@ -2025,10 +2035,37 @@ __webpack_require__.r(__webpack_exports__);
           return "december";
       }
     },
+    // Turn 0 to 6 into string of day.
+    getDayString: function getDayString(day) {
+      // getDay starts at sunday. (0 is sunday)
+      switch (day) {
+        case 0:
+          return "zondag";
+
+        case 1:
+          return "maandag";
+
+        case 2:
+          return "dinsdag";
+
+        case 3:
+          return "woensdag";
+
+        case 4:
+          return "donderdag";
+
+        case 5:
+          return "vrijdag";
+
+        case 6:
+          return "zaterdag";
+      }
+    },
+    // Add or remove amount of days provided in parameter.
     updateDay: function updateDay(days) {
       this.selectedDate = new Date(this.selectedDate.setDate(this.selectedDate.getDate() + days));
-      console.log(this.selectedDate.getDate());
     },
+    // Return the selectedDate offset by amount of days provided in parameter.
     getOffsetDay: function getOffsetDay(days) {
       // Copy selected date without reference.
       var date = new Date(JSON.parse(JSON.stringify(this.selectedDate)));
@@ -37411,16 +37448,62 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h1", [_vm._v("week calendar component")]),
-    _vm._v(" "),
     _c(
       "div",
       { staticClass: "row" },
-      _vm._l(5, function(i) {
+      _vm._l(7, function(i) {
         return _c("div", { staticClass: "col" }, [
-          _c("h1", [_vm._v(_vm._s(i - 3))]),
-          _vm._v(" "),
-          _c("div", [_vm._v(_vm._s(_vm.getOffsetDay(i - 3)))])
+          _vm.selectedDate.getDay() === 0
+            ? _c("div", [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(
+                      _vm.getDayString(
+                        _vm
+                          .getOffsetDay(i - _vm.selectedDate.getDay() - 7)
+                          .getDay()
+                      )
+                    ) +
+                    "\n                " +
+                    _vm._s(
+                      _vm
+                        .getOffsetDay(i - _vm.selectedDate.getDay() - 7)
+                        .getDate()
+                    ) +
+                    "\n                " +
+                    _vm._s(
+                      _vm.getMonthString(
+                        _vm
+                          .getOffsetDay(i - _vm.selectedDate.getDay() - 7)
+                          .getMonth()
+                      )
+                    ) +
+                    "\n            "
+                )
+              ])
+            : _c("div", [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(
+                      _vm.getDayString(
+                        _vm.getOffsetDay(i - _vm.selectedDate.getDay()).getDay()
+                      )
+                    ) +
+                    "\n                " +
+                    _vm._s(
+                      _vm.getOffsetDay(i - _vm.selectedDate.getDay()).getDate()
+                    ) +
+                    "\n                " +
+                    _vm._s(
+                      _vm.getMonthString(
+                        _vm
+                          .getOffsetDay(i - _vm.selectedDate.getDay())
+                          .getMonth()
+                      )
+                    ) +
+                    "\n            "
+                )
+              ])
         ])
       }),
       0
@@ -37431,11 +37514,11 @@ var render = function() {
       {
         on: {
           click: function($event) {
-            return _vm.updateDay(-1)
+            return _vm.updateDay(-7)
           }
         }
       },
-      [_vm._v("Previous day")]
+      [_vm._v("Previous week")]
     ),
     _vm._v(" "),
     _c(
@@ -37443,11 +37526,11 @@ var render = function() {
       {
         on: {
           click: function($event) {
-            return _vm.updateDay(1)
+            return _vm.updateDay(7)
           }
         }
       },
-      [_vm._v("Next day")]
+      [_vm._v("Next week")]
     )
   ])
 }

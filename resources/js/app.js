@@ -30,3 +30,11 @@ Vue.component('week-calendar-component', require('./components/WeekCalendarCompo
 const app = new Vue({
     el: '#app',
 });
+
+let hamburger = document.querySelector('.header__hamburger');
+let hamburger_menu = document.querySelector('.header__hamburger-menu');
+
+hamburger.addEventListener("click", function() {
+    hamburger.classList.toggle("active");
+    hamburger_menu.classList.toggle("active");
+});

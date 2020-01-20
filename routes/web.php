@@ -7,6 +7,10 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/overzicht', 'OverzichtController@index')->name('overzicht');
 Route::get('/profiel', 'ProfielController@index')->name('profiel');
 
+Route::patch('/profiel/{user}',
+    ['as' => 'profiel.update', 'uses' => 'ProfielController@update']
+);
+
 Route::post('/track-time', 'HomeController@trackTime');
 
 Route::get('/user/id', function () {

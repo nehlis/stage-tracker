@@ -13,6 +13,7 @@ h5,
 h6,
 .h6 {
   color: #001926;
+  font-weight: 700;
 }
 
 .content {
@@ -23,6 +24,10 @@ h6,
   .content {
     padding: 60px 0;
   }
+}
+
+.content__heading {
+  font-weight: 900;
 }
 
 body {
@@ -234,7 +239,7 @@ ul {
 }
 
 main {
-  min-height: calc(100vh - 363px - 60px);
+  min-height: calc(100vh - 300px - 60px);
 }
 
 .login {

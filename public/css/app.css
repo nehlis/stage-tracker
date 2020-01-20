@@ -266,6 +266,8 @@ li {
   border-radius: 4px;
   padding: 15px;
   margin-bottom: 25px;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
   box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
 }
 

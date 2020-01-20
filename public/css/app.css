@@ -424,15 +424,38 @@ main {
   padding: 15px 15px 30px;
   position: relative;
   cursor: pointer;
-  border-radius: 4px;
+  min-height: 50px;
 }
 
 .calendar__item.active {
   background: #025D8C;
 }
 
+.calendar__day {
+  position: absolute;
+  bottom: -15px;
+  right: 50%;
+  width: 85px;
+  height: 30px;
+  border-radius: 10px;
+  background: #001926;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-transform: translateX(50%);
+          transform: translateX(50%);
+}
+
+.calendar__day span {
+  color: white;
+  font-weight: 700;
+}
+
 .calendar__col {
-  padding: 0 5px !important;
+  padding: 0 !important;
 }
 
 .calendar__small {
@@ -443,13 +466,13 @@ main {
 }
 
 .calendar__title {
-  color: black;
+  color: #001926;
   text-transform: capitalize;
-  font-weight: 700;
+  font-weight: 900;
 }
 
 .active .calendar__title {
-  color: #025D8C;
+  color: white;
 }
 
 .calendar__form {
@@ -488,7 +511,7 @@ main {
 }
 
 .calendar__toggle-date i {
-  font-size: 30px;
+  font-size: 20px;
   color: white;
 }
 
@@ -498,14 +521,16 @@ main {
 
 .calendar__next {
   position: absolute;
-  right: 15px;
+  right: 26px;
+  border-radius: 0 4px 4px 0;
   top: 0;
   bottom: 0;
 }
 
 .calendar__previous {
   position: absolute;
-  left: 15px;
+  border-radius: 4px 0 0 4px;
+  left: 26px;
   top: 0;
   bottom: 0;
 }

@@ -2009,7 +2009,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "WeekCalendarComponent",
   mounted: function mounted() {
@@ -37517,26 +37516,32 @@ var render = function() {
                                 .getDay()
                             )
                           ) +
-                          "\n                        " +
+                          "\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "calendar__day" }, [
+                      _c("span", [
+                        _vm._v(
                           _vm._s(
                             _vm
                               .getOffsetDay(i - _vm.selectedDate.getDay() - 7)
                               .getDate()
                           ) +
-                          "\n                        " +
-                          _vm._s(
-                            _vm.getMonthString(
+                            "-" +
+                            _vm._s(
                               _vm
                                 .getOffsetDay(i - _vm.selectedDate.getDay() - 7)
-                                .getMonth()
+                                .getMonth() + 1
+                            ) +
+                            "-" +
+                            _vm._s(
+                              _vm
+                                .getOffsetDay(i - _vm.selectedDate.getDay() - 7)
+                                .getFullYear()
                             )
-                          ) +
-                          "\n                    "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "calendar__small" }, [
-                      _vm._v("10-10-2020")
+                        )
+                      ])
                     ])
                   ])
                 : _c("div", [

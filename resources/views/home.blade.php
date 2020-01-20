@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Home | Stage Tracker')
+
 @section('content')
 <div class="container">
 

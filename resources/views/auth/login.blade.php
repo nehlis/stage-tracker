@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Inloggen | Stage Tracker')
+
 @section('content')
     <div class="content login">
         <div class="container login__container">

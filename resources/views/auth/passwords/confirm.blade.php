@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Wachtwoord bevestigen | Stage Tracker')
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

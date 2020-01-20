@@ -256,6 +256,10 @@ main {
   }
 }
 
+.login__image--small {
+  max-height: 250px;
+}
+
 .login__heading {
   font-weight: 900;
   text-align: center;

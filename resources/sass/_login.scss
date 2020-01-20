@@ -7,6 +7,10 @@
         @media screen and (max-width: $size-small) {
             display: none;
         }
+
+        &--small {
+            max-height: 250px;
+        }
     }
 
     &__heading {

@@ -3,10 +3,10 @@
 @section('title', 'Uw profiel | Stage Tracker')
 
 @section('content')
-    <div class="container content profile">
+    <div class="container content login__container">
         <div class="row">
             <div class="col-md-6">
-                <img class="login__image" src="{{asset('images/undraw_account.svg')}}" alt="">
+                <img class="login__image login__image--small" src="{{asset('images/undraw_account.svg')}}" alt="">
             </div>
             <div class="col-md-6">
                 <h1 class="login__heading">Profiel</h1>

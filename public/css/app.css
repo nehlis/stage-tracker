@@ -410,6 +410,7 @@ main {
 
 .calendar__row {
   position: relative;
+  padding: 0 60px;
 }
 
 .calendar__item {
@@ -492,14 +493,14 @@ main {
 
 .calendar__next {
   position: absolute;
-  right: -45px;
+  right: 15px;
   top: 0;
   bottom: 0;
 }
 
 .calendar__previous {
   position: absolute;
-  left: -45px;
+  left: 15px;
   top: 0;
   bottom: 0;
 }

@@ -1,8 +1,7 @@
 .calendar {
-
-
     &__row {
         position: relative;
+        padding: 0 60px;
     }
 
     &__item {
@@ -84,14 +83,14 @@
 
     &__next {
         position: absolute;
-        right: -45px;
+        right: 15px;
         top: 0;
         bottom: 0;
     }
 
     &__previous {
         position: absolute;
-        left: -45px;
+        left: 15px;
         top: 0;
         bottom: 0;
     }

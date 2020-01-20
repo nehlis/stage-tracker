@@ -3,9 +3,10 @@
         <div class="row calendar__row">
             <!-- Loop 7 times -->
             <div class="col calendar__col" v-for="i in 7">
-                <div class="calendar__item">
-                    <!-- If it's sunday, remove 7 days from current day. -->
-                    <div v-if="selectedDate.getDay() === 0">
+
+                <!-- If it's sunday, remove 7 days from current day. -->
+                <div v-if="selectedDate.getDay() === 0" v-on:click="calenderClick(i)">
+                    <div class="calendar__item" :data-id="i">
                         <h5 class="calendar__title">
                             {{getDayString(getOffsetDay((i-selectedDate.getDay()-7)).getDay())}}
                         </h5>
@@ -14,9 +15,11 @@
                             <span>{{getOffsetDay((i-selectedDate.getDay()-7)).getDate()}}-{{getOffsetDay(i-selectedDate.getDay()-7).getMonth() + 1}}-{{getOffsetDay(i-selectedDate.getDay()-7).getFullYear()}}</span>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Else show normal week -->
-                    <div v-else>
+                <!-- Else show normal week -->
+                <div v-else v-on:click="calenderClick(i)">
+                    <div class="calendar__item" :data-id="i">
                         <h5 class="calendar__title">
                             {{getDayString(getOffsetDay((i-selectedDate.getDay())).getDay())}}
                         </h5>
@@ -26,9 +29,12 @@
                         </div>
                     </div>
                 </div>
+
             </div>
-            <button class="calendar__previous calendar__toggle-date" v-on:click="updateDay(-7)"><i class="fas fa-chevron-left"/></button>
-            <button class="calendar__next calendar__toggle-date" v-on:click="updateDay(7)"><i class="fas fa-chevron-right"/></button>
+            <button class="calendar__previous calendar__toggle-date" v-on:click="updateDay(-7)"><i
+                class="fas fa-chevron-left"/></button>
+            <button class="calendar__next calendar__toggle-date" v-on:click="updateDay(7)"><i
+                class="fas fa-chevron-right"/></button>
         </div>
 
         <form @submit.prevent="submit" class="calendar__form">
@@ -36,14 +42,10 @@
                 <input type="hidden" name="_token" :value="csrf"/>
 
                 <div class="row calendar__row--fields">
-                    <!-- TODO: Replace with selectedDate -->
-                    <div class="col calendar__col">
-                        <label for="inputDate" class="login__label">Datum</label>
-                        <input type="date" class="login__input" id="inputDate" v-model="fields.inputDate"
-                               aria-describedby="inputDate"
-                               placeholder="Datum">
-                        <div v-if="errors && errors.inputDate" class="text-danger">{{ errors.inputDate[0] }}</div>
-                    </div>
+
+                    <input type="hidden" class="login__input" id="inputDate" v-model="fields.inputDate"
+                           aria-describedby="inputDate"
+                           placeholder="Datum">
 
                     <div class="col calendar__col">
                         <label for="inputBegin" class="login__label">Begintijd</label>
@@ -81,6 +83,9 @@
     export default {
         name: "WeekCalendarComponent",
         mounted() {
+            
+            // TODO: Highlight curent day.
+
             const that = this;
             axios.get('/user/id', {})
                 .then(function (response) {
@@ -97,7 +102,8 @@
                 offsetDate: new Date(),
                 csrf: document.head.querySelector('meta[name="csrf-token"]').content,
                 fields: {
-                    user_id: ''
+                    user_id: '',
+                    inputDate: ''
                 },
                 errors: {}
             }
@@ -114,7 +120,27 @@
                     }
                 });
             },
+            calenderClick: function (index) {
+                if (this.selectedDate.getDay() === 0) {
+                    this.fields.inputDate = this.getOffsetDay((index - this.selectedDate.getDay() - 6)).toISOString().split('T')[0];
+                } else {
+                    this.fields.inputDate = this.getOffsetDay(index - this.selectedDate.getDay()).toISOString().split('T')[0];
+                }
 
+                this.removeCalendarClasses();
+
+                document.querySelector(".calendar__item[data-id='" + index + "']").classList.add('active');
+
+            },
+            removeCalendarClasses: function () {
+                let calendar_items = document.getElementsByClassName("calendar__item");
+
+                for (let i = 0; i < calendar_items.length; i++)
+                {
+                    calendar_items[i].classList.remove('active');
+                    console.log(calendar_items[0]);
+                }
+            },
             // Turn 0 to 11 into string of month.
             getMonthString: function (month) {
                 switch (month) {
@@ -166,6 +192,9 @@
             },
             // Add or remove amount of days provided in parameter.
             updateDay: function (days) {
+                this.removeCalendarClasses();
+                this.fields.inputDate = null;
+
                 this.selectedDate = new Date(
                     this.selectedDate.setDate(this.selectedDate.getDate() + days)
                 );

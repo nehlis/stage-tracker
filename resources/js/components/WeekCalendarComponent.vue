@@ -15,13 +15,15 @@
                         </div>
                     </div>
 
-                    <!-- If it's sunday, remove 7 days from current day. -->
+                    <!-- Else show normal week -->
                     <div v-else>
                         <h5 class="calendar__title">
-                            {{getDayString(getOffsetDay(i-selectedDate.getDay()).getDay())}}
-                            {{getOffsetDay(i-selectedDate.getDay()).getDate()}}
-                            {{getMonthString(getOffsetDay(i-selectedDate.getDay()).getMonth())}}
+                            {{getDayString(getOffsetDay((i-selectedDate.getDay())).getDay())}}
                         </h5>
+
+                        <div class="calendar__day">
+                            <span>{{getOffsetDay((i-selectedDate.getDay())).getDate()}}-{{getOffsetDay(i-selectedDate.getDay()).getMonth() + 1}}-{{getOffsetDay(i-selectedDate.getDay()).getFullYear()}}</span>
+                        </div>
                     </div>
                 </div>
             </div>

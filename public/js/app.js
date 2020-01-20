@@ -2009,6 +2009,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "WeekCalendarComponent",
   mounted: function mounted() {
@@ -2022,7 +2024,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       currentDate: new Date(),
-      selectedDate: new Date(2020, 0, 19),
+      selectedDate: new Date(),
       offsetDate: new Date(),
       csrf: document.head.querySelector('meta[name="csrf-token"]').content,
       fields: {
@@ -37555,22 +37557,32 @@ var render = function() {
                                 .getDay()
                             )
                           ) +
-                          "\n                        " +
+                          "\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "calendar__day" }, [
+                      _c("span", [
+                        _vm._v(
                           _vm._s(
                             _vm
                               .getOffsetDay(i - _vm.selectedDate.getDay())
                               .getDate()
                           ) +
-                          "\n                        " +
-                          _vm._s(
-                            _vm.getMonthString(
+                            "-" +
+                            _vm._s(
                               _vm
                                 .getOffsetDay(i - _vm.selectedDate.getDay())
-                                .getMonth()
+                                .getMonth() + 1
+                            ) +
+                            "-" +
+                            _vm._s(
+                              _vm
+                                .getOffsetDay(i - _vm.selectedDate.getDay())
+                                .getFullYear()
                             )
-                          ) +
-                          "\n                    "
-                      )
+                        )
+                      ])
                     ])
                   ])
             ])

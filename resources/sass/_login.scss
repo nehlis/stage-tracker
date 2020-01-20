@@ -1,0 +1,53 @@
+.login {
+    &__image {
+        max-height: 300px;
+        
+        @media screen and (max-width: $size-small) {
+            display: none;
+        }
+    }
+
+    &__heading {
+        font-weight: 900;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    &__container {
+        max-width: 750px !important;
+    }
+
+    &__label {
+        font-weight: 700;
+    }
+
+    &__input {
+        width: 100%;
+        border: none;
+        border-radius: 4px;
+        padding: 15px;
+        margin-bottom: 25px;
+        box-shadow: 0 0 0 1px rgba(63, 63, 68, .05), 0 1px 3px 0 rgba(63, 63, 68, .15);
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 1px rgba(63, 63, 68, .15), 0 1px 3px 0 rgba(63, 63, 68, .25);
+        }
+
+        @media screen and (max-width: $size-small) {
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+    }
+
+    hr {
+        margin: 28px 0;
+    }
+
+    &__button {
+        float: right;
+        &-small {
+            display: block;
+        }
+    }
+}

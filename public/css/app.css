@@ -218,6 +218,102 @@ li {
   list-style: none;
 }
 
+.login__image {
+  max-height: 300px;
+}
+
+@media screen and (max-width: 768px) {
+  .login__image {
+    display: none;
+  }
+}
+
+.login__heading {
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.login__container {
+  max-width: 750px !important;
+}
+
+.login__label {
+  font-weight: 700;
+}
+
+.login__input {
+  width: 100%;
+  border: none;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 25px;
+  box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
+}
+
+.login__input:focus {
+  outline: none;
+  box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.15), 0 1px 3px 0 rgba(63, 63, 68, 0.25);
+}
+
+@media screen and (max-width: 768px) {
+  .login__input {
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+}
+
+.login hr {
+  margin: 28px 0;
+}
+
+.login__button {
+  float: right;
+}
+
+.login__button-small {
+  display: block;
+}
+
+.content {
+  padding: 100px 0;
+}
+
+@media screen and (max-width: 768px) {
+  .content {
+    padding: 60px 0;
+  }
+}
+
+.button {
+  border-radius: 4px;
+  border: none;
+  font-weight: 700;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+
+.button--primary {
+  padding: 7px 15px;
+  background: #025D8C;
+  color: white;
+}
+
+.button--primary:hover {
+  background: #001926;
+}
+
+.button--small {
+  color: black;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+
+.button--small:hover {
+  color: #025D8C;
+  text-decoration: none;
+}
+
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors

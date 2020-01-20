@@ -19,6 +19,10 @@
 
     &__label {
         font-weight: 700;
+
+        &-no-p {
+            margin-bottom: 0;
+        }
     }
 
     &__input {
@@ -45,7 +49,12 @@
     }
 
     &__button {
-        float: right;
+        width: 100%;
+
+        &--right {
+            float: right;
+        }
+
         &-small {
             display: block;
         }

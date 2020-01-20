@@ -242,6 +242,10 @@ li {
   font-weight: 700;
 }
 
+.login__label-no-p {
+  margin-bottom: 0;
+}
+
 .login__input {
   width: 100%;
   border: none;
@@ -268,6 +272,10 @@ li {
 }
 
 .login__button {
+  width: 100%;
+}
+
+.login__button--right {
   float: right;
 }
 

@@ -28,17 +28,17 @@
                         @enderror
 
                         <input class="login__checkbox" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                        <label class="login__label" for="remember">{{ __('Onthoud mij') }}</label>
+                        <label class="login__label login__label-no-p" for="remember">{{ __('Onthoud mij') }}</label>
 
-                        <button type="submit" class="button button--primary login__button">
-                            {{ __('Inloggen') }}
-                        </button>
-                        <hr>
                         @if (Route::has('password.request'))
-                            <a class="button button--small login__button-small" href="{{ route('password.request') }}">
+                            <a class="button button--small login__button-small login__button--right" href="{{ route('password.request') }}">
                                 {{ __('Wachtwoord vergeten?') }}
                             </a>
                         @endif
+                        <hr>
+                        <button type="submit" class="button button--primary login__button">
+                            {{ __('Inloggen') }}
+                        </button>
                     </form>
                 </div>
             </div>

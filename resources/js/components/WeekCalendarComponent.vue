@@ -34,37 +34,39 @@
             <div class="calendar__form--inner">
                 <input type="hidden" name="_token" :value="csrf"/>
 
-                <!-- TODO: Replace with selectedDate -->
-                <div class="form-group">
-                    <label for="inputDate" class="login__label">Datum</label>
-                    <input type="date" class="login__input" id="inputDate" v-model="fields.inputDate"
-                           aria-describedby="inputDate"
-                           placeholder="Datum">
-                    <div v-if="errors && errors.inputDate" class="text-danger">{{ errors.inputDate[0] }}</div>
-                </div>
+                <div class="row calendar__row--fields">
+                    <!-- TODO: Replace with selectedDate -->
+                    <div class="col calendar__col">
+                        <label for="inputDate" class="login__label">Datum</label>
+                        <input type="date" class="login__input" id="inputDate" v-model="fields.inputDate"
+                               aria-describedby="inputDate"
+                               placeholder="Datum">
+                        <div v-if="errors && errors.inputDate" class="text-danger">{{ errors.inputDate[0] }}</div>
+                    </div>
 
-                <div class="form-group">
-                    <label for="inputBegin" class="login__label">Begintijd</label>
-                    <input type="time" class="login__input" id="inputBegin" v-model="fields.inputBegin"
-                           aria-describedby="inputBegin"
-                           placeholder="begintijd">
-                    <div v-if="errors && errors.inputBegin" class="text-danger">{{ errors.inputBegin[0] }}</div>
-                </div>
+                    <div class="col calendar__col">
+                        <label for="inputBegin" class="login__label">Begintijd</label>
+                        <input type="time" class="login__input" id="inputBegin" v-model="fields.inputBegin"
+                               aria-describedby="inputBegin"
+                               placeholder="begintijd">
+                        <div v-if="errors && errors.inputBegin" class="text-danger">{{ errors.inputBegin[0] }}</div>
+                    </div>
 
-                <div class="form-group">
-                    <label for="inputEnd" class="login__label">Eindtijd</label>
-                    <input type="time" class="login__input" id="inputEnd" v-model="fields.inputEnd"
-                           aria-describedby="inputEnd"
-                           placeholder="eindtijd">
-                    <div v-if="errors && errors.inputEnd" class="text-danger">{{ errors.inputEnd[0] }}</div>
-                </div>
+                    <div class="col calendar__col">
+                        <label for="inputEnd" class="login__label">Eindtijd</label>
+                        <input type="time" class="login__input" id="inputEnd" v-model="fields.inputEnd"
+                               aria-describedby="inputEnd"
+                               placeholder="eindtijd">
+                        <div v-if="errors && errors.inputEnd" class="text-danger">{{ errors.inputEnd[0] }}</div>
+                    </div>
 
-                <div class="form-group">
-                    <label for="inputBreak" class="login__label">Pauzeduratie</label>
-                    <input type="time" class="login__input" id="inputBreak" v-model="fields.inputBreak"
-                           aria-describedby="inputBreak"
-                           placeholder="pauze">
-                    <div v-if="errors && errors.inputBreak" class="text-danger">{{ errors.inputBreak[0] }}</div>
+                    <div class="col calendar__col">
+                        <label for="inputBreak" class="login__label">Pauzeduratie</label>
+                        <input type="time" class="login__input" id="inputBreak" v-model="fields.inputBreak"
+                               aria-describedby="inputBreak"
+                               placeholder="pauze">
+                        <div v-if="errors && errors.inputBreak" class="text-danger">{{ errors.inputBreak[0] }}</div>
+                    </div>
                 </div>
 
                 <button type="submit" class="button button--primary">Versturen</button>

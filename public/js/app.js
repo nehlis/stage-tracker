@@ -2008,6 +2008,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "WeekCalendarComponent",
   mounted: function mounted() {
@@ -37617,168 +37619,170 @@ var render = function() {
             domProps: { value: _vm.csrf }
           }),
           _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c(
-              "label",
-              { staticClass: "login__label", attrs: { for: "inputDate" } },
-              [_vm._v("Datum")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.fields.inputDate,
-                  expression: "fields.inputDate"
-                }
-              ],
-              staticClass: "login__input",
-              attrs: {
-                type: "date",
-                id: "inputDate",
-                "aria-describedby": "inputDate",
-                placeholder: "Datum"
-              },
-              domProps: { value: _vm.fields.inputDate },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+          _c("div", { staticClass: "row calendar__row--fields" }, [
+            _c("div", { staticClass: "col calendar__col" }, [
+              _c(
+                "label",
+                { staticClass: "login__label", attrs: { for: "inputDate" } },
+                [_vm._v("Datum")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.fields.inputDate,
+                    expression: "fields.inputDate"
                   }
-                  _vm.$set(_vm.fields, "inputDate", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm.errors && _vm.errors.inputDate
-              ? _c("div", { staticClass: "text-danger" }, [
-                  _vm._v(_vm._s(_vm.errors.inputDate[0]))
-                ])
-              : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c(
-              "label",
-              { staticClass: "login__label", attrs: { for: "inputBegin" } },
-              [_vm._v("Begintijd")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.fields.inputBegin,
-                  expression: "fields.inputBegin"
-                }
-              ],
-              staticClass: "login__input",
-              attrs: {
-                type: "time",
-                id: "inputBegin",
-                "aria-describedby": "inputBegin",
-                placeholder: "begintijd"
-              },
-              domProps: { value: _vm.fields.inputBegin },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+                ],
+                staticClass: "login__input",
+                attrs: {
+                  type: "date",
+                  id: "inputDate",
+                  "aria-describedby": "inputDate",
+                  placeholder: "Datum"
+                },
+                domProps: { value: _vm.fields.inputDate },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.fields, "inputDate", $event.target.value)
                   }
-                  _vm.$set(_vm.fields, "inputBegin", $event.target.value)
                 }
-              }
-            }),
+              }),
+              _vm._v(" "),
+              _vm.errors && _vm.errors.inputDate
+                ? _c("div", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(_vm.errors.inputDate[0]))
+                  ])
+                : _vm._e()
+            ]),
             _vm._v(" "),
-            _vm.errors && _vm.errors.inputBegin
-              ? _c("div", { staticClass: "text-danger" }, [
-                  _vm._v(_vm._s(_vm.errors.inputBegin[0]))
-                ])
-              : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c(
-              "label",
-              { staticClass: "login__label", attrs: { for: "inputEnd" } },
-              [_vm._v("Eindtijd")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.fields.inputEnd,
-                  expression: "fields.inputEnd"
-                }
-              ],
-              staticClass: "login__input",
-              attrs: {
-                type: "time",
-                id: "inputEnd",
-                "aria-describedby": "inputEnd",
-                placeholder: "eindtijd"
-              },
-              domProps: { value: _vm.fields.inputEnd },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c("div", { staticClass: "col calendar__col" }, [
+              _c(
+                "label",
+                { staticClass: "login__label", attrs: { for: "inputBegin" } },
+                [_vm._v("Begintijd")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.fields.inputBegin,
+                    expression: "fields.inputBegin"
                   }
-                  _vm.$set(_vm.fields, "inputEnd", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm.errors && _vm.errors.inputEnd
-              ? _c("div", { staticClass: "text-danger" }, [
-                  _vm._v(_vm._s(_vm.errors.inputEnd[0]))
-                ])
-              : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c(
-              "label",
-              { staticClass: "login__label", attrs: { for: "inputBreak" } },
-              [_vm._v("Pauzeduratie")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.fields.inputBreak,
-                  expression: "fields.inputBreak"
-                }
-              ],
-              staticClass: "login__input",
-              attrs: {
-                type: "time",
-                id: "inputBreak",
-                "aria-describedby": "inputBreak",
-                placeholder: "pauze"
-              },
-              domProps: { value: _vm.fields.inputBreak },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+                ],
+                staticClass: "login__input",
+                attrs: {
+                  type: "time",
+                  id: "inputBegin",
+                  "aria-describedby": "inputBegin",
+                  placeholder: "begintijd"
+                },
+                domProps: { value: _vm.fields.inputBegin },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.fields, "inputBegin", $event.target.value)
                   }
-                  _vm.$set(_vm.fields, "inputBreak", $event.target.value)
                 }
-              }
-            }),
+              }),
+              _vm._v(" "),
+              _vm.errors && _vm.errors.inputBegin
+                ? _c("div", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(_vm.errors.inputBegin[0]))
+                  ])
+                : _vm._e()
+            ]),
             _vm._v(" "),
-            _vm.errors && _vm.errors.inputBreak
-              ? _c("div", { staticClass: "text-danger" }, [
-                  _vm._v(_vm._s(_vm.errors.inputBreak[0]))
-                ])
-              : _vm._e()
+            _c("div", { staticClass: "col calendar__col" }, [
+              _c(
+                "label",
+                { staticClass: "login__label", attrs: { for: "inputEnd" } },
+                [_vm._v("Eindtijd")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.fields.inputEnd,
+                    expression: "fields.inputEnd"
+                  }
+                ],
+                staticClass: "login__input",
+                attrs: {
+                  type: "time",
+                  id: "inputEnd",
+                  "aria-describedby": "inputEnd",
+                  placeholder: "eindtijd"
+                },
+                domProps: { value: _vm.fields.inputEnd },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.fields, "inputEnd", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm.errors && _vm.errors.inputEnd
+                ? _c("div", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(_vm.errors.inputEnd[0]))
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col calendar__col" }, [
+              _c(
+                "label",
+                { staticClass: "login__label", attrs: { for: "inputBreak" } },
+                [_vm._v("Pauzeduratie")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.fields.inputBreak,
+                    expression: "fields.inputBreak"
+                  }
+                ],
+                staticClass: "login__input",
+                attrs: {
+                  type: "time",
+                  id: "inputBreak",
+                  "aria-describedby": "inputBreak",
+                  placeholder: "pauze"
+                },
+                domProps: { value: _vm.fields.inputBreak },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.fields, "inputBreak", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm.errors && _vm.errors.inputBreak
+                ? _c("div", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(_vm.errors.inputBreak[0]))
+                  ])
+                : _vm._e()
+            ])
           ]),
           _vm._v(" "),
           _c(

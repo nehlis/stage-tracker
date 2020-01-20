@@ -23,6 +23,16 @@
 
     &__text {
         color: #bababa;
+
+        a {
+            color: #bababa;
+            transition: .3s ease;
+
+            &:hover {
+                color: $blue;
+                text-decoration: none;
+            }
+        }
     }
 
     &__list {

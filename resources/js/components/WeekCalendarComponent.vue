@@ -12,6 +12,7 @@
                             {{getMonthString(getOffsetDay(i-selectedDate.getDay()-7).getMonth())}}
                         </h5>
 
+                        <!-- TODO: Maak dynamisch -->
                         <div class="calendar__small">10-10-2020</div>
                     </div>
 

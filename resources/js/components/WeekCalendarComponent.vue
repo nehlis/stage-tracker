@@ -8,12 +8,11 @@
                     <div v-if="selectedDate.getDay() === 0">
                         <h5 class="calendar__title">
                             {{getDayString(getOffsetDay((i-selectedDate.getDay()-7)).getDay())}}
-                            {{getOffsetDay((i-selectedDate.getDay()-7)).getDate()}}
-                            {{getMonthString(getOffsetDay(i-selectedDate.getDay()-7).getMonth())}}
                         </h5>
 
-                        <!-- TODO: Maak dynamisch -->
-                        <div class="calendar__small">10-10-2020</div>
+                        <div class="calendar__day">
+                            <span>{{getOffsetDay((i-selectedDate.getDay()-7)).getDate()}}-{{getOffsetDay(i-selectedDate.getDay()-7).getMonth() + 1}}-{{getOffsetDay(i-selectedDate.getDay()-7).getFullYear()}}</span>
+                        </div>
                     </div>
 
                     <!-- If it's sunday, remove 7 days from current day. -->

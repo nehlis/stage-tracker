@@ -8,9 +8,9 @@
 
     <div class="row">
         <div class="col-md-12">
-{{--            <form method="post" action="{{route('users.update', $user)}}">--}}
-{{--                @csrf--}}
-{{--                @method('patch')--}}
+            <form method="post" action="{{route('profiel.update', $user)}}">
+                @csrf
+                @method('patch')
 
                 <div class="form-group row">
                     <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Naam') }}</label>

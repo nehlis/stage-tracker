@@ -1984,17 +1984,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "WeekCalendarComponent",
+  mounted: function mounted() {
+    var that = this;
+    axios.get('/user/id', {}).then(function (response) {
+      that.fields.user_id = response.data;
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  },
   data: function data() {
     return {
       currentDate: new Date(),
       selectedDate: new Date(2020, 0, 19),
       offsetDate: new Date(),
-      csrf: document.head.querySelector('meta[name="csrf-token"]').content
+      csrf: document.head.querySelector('meta[name="csrf-token"]').content,
+      fields: {
+        user_id: ''
+      },
+      errors: {}
     };
   },
   methods: {
+    submit: function submit() {
+      var _this = this;
+
+      this.errors = {};
+      axios.post('/track-time', this.fields).then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        if (error.response.status === 422) {
+          _this.errors = error.response.data.errors || {};
+        }
+      });
+    },
     // Turn 0 to 11 into string of month.
     getMonthString: function getMonthString(month) {
       switch (month) {
@@ -37531,6 +37569,170 @@ var render = function() {
         }
       },
       [_vm._v("Next week")]
+    ),
+    _vm._v(" "),
+    _c(
+      "form",
+      {
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.submit($event)
+          }
+        }
+      },
+      [
+        _c("input", {
+          attrs: { type: "hidden", name: "_token" },
+          domProps: { value: _vm.csrf }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.fields.inputDate,
+                expression: "fields.inputDate"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "date",
+              id: "inputDate",
+              "aria-describedby": "inputDate",
+              placeholder: "Datum"
+            },
+            domProps: { value: _vm.fields.inputDate },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.fields, "inputDate", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors && _vm.errors.inputDate
+            ? _c("div", { staticClass: "text-danger" }, [
+                _vm._v(_vm._s(_vm.errors.inputDate[0]))
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.fields.inputBegin,
+                expression: "fields.inputBegin"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "time",
+              id: "inputBegin",
+              "aria-describedby": "inputBegin",
+              placeholder: "begintijd"
+            },
+            domProps: { value: _vm.fields.inputBegin },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.fields, "inputBegin", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors && _vm.errors.inputBegin
+            ? _c("div", { staticClass: "text-danger" }, [
+                _vm._v(_vm._s(_vm.errors.inputBegin[0]))
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.fields.inputEnd,
+                expression: "fields.inputEnd"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "time",
+              id: "inputEnd",
+              "aria-describedby": "inputEnd",
+              placeholder: "eindtijd"
+            },
+            domProps: { value: _vm.fields.inputEnd },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.fields, "inputEnd", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors && _vm.errors.inputEnd
+            ? _c("div", { staticClass: "text-danger" }, [
+                _vm._v(_vm._s(_vm.errors.inputEnd[0]))
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.fields.inputBreak,
+                expression: "fields.inputBreak"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "time",
+              id: "inputBreak",
+              "aria-describedby": "inputBreak",
+              placeholder: "pauze"
+            },
+            domProps: { value: _vm.fields.inputBreak },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.fields, "inputBreak", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors && _vm.errors.inputBreak
+            ? _c("div", { staticClass: "text-danger" }, [
+                _vm._v(_vm._s(_vm.errors.inputBreak[0]))
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+          [_vm._v("Versturen")]
+        )
+      ]
     )
   ])
 }
@@ -49874,8 +50076,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\stage-tracker\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\stage-tracker\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Projects\stage-tracker\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Projects\stage-tracker\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

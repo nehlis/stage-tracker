@@ -16,6 +16,7 @@
         position: relative;
         cursor: pointer;
         min-height: 50px;
+        transition: .3s ease;
 
         &.active {
             background: $blue;
@@ -56,6 +57,7 @@
         color: $dark-blue;
         text-transform: capitalize;
         font-weight: 900;
+        transition: .3s ease;
 
         .active & {
             color: white;

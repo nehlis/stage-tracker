@@ -89,7 +89,7 @@
         data: function () {
             return {
                 currentDate: new Date(),
-                selectedDate: new Date(2020, 0, 19),
+                selectedDate: new Date(),
                 offsetDate: new Date(),
                 csrf: document.head.querySelector('meta[name="csrf-token"]').content,
                 fields: {

@@ -26,26 +26,40 @@
         <button v-on:click="updateDay(-7)">Previous week</button>
         <button v-on:click="updateDay(7)">Next week</button>
 
-        <!--        <form method="POST" action="/reservering">-->
-        <!--            <input type="hidden" name="_token" :value="csrf"/>-->
+        <form @submit.prevent="submit">
+            <input type="hidden" name="_token" :value="csrf"/>
 
-        <!--            <div class="form-group">-->
-        <!--                <input type="text" class="form-control" id="inputBegin" aria-describedby="inputBegin"-->
-        <!--                       placeholder="begintijd">-->
-        <!--            </div>-->
+            <!-- TODO: Replace with selectedDate -->
+            <div class="form-group">
+                <input type="date" class="form-control" id="inputDate" v-model="fields.inputDate"
+                       aria-describedby="inputDate"
+                       placeholder="Datum">
+                <div v-if="errors && errors.inputDate" class="text-danger">{{ errors.inputDate[0] }}</div>
+            </div>
 
-        <!--            <div class="form-group">-->
-        <!--                <input type="text" class="form-control" id="inputEind" aria-describedby="inputEind"-->
-        <!--                       placeholder="eindtijd">-->
-        <!--            </div>-->
+            <div class="form-group">
+                <input type="time" class="form-control" id="inputBegin" v-model="fields.inputBegin"
+                       aria-describedby="inputBegin"
+                       placeholder="begintijd">
+                <div v-if="errors && errors.inputBegin" class="text-danger">{{ errors.inputBegin[0] }}</div>
+            </div>
 
-        <!--            <div class="form-group">-->
-        <!--                <input type="text" class="form-control" id="inputPauze" aria-describedby="inputPauze"-->
-        <!--                       placeholder="pauze">-->
-        <!--            </div>-->
+            <div class="form-group">
+                <input type="time" class="form-control" id="inputEnd" v-model="fields.inputEnd"
+                       aria-describedby="inputEnd"
+                       placeholder="eindtijd">
+                <div v-if="errors && errors.inputEnd" class="text-danger">{{ errors.inputEnd[0] }}</div>
+            </div>
 
-        <!--            <button type="submit" class="btn btn-primary">Versturen</button>-->
-        <!--        </form>-->
+            <div class="form-group">
+                <input type="time" class="form-control" id="inputBreak" v-model="fields.inputBreak"
+                       aria-describedby="inputBreak"
+                       placeholder="pauze">
+                <div v-if="errors && errors.inputBreak" class="text-danger">{{ errors.inputBreak[0] }}</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Versturen</button>
+        </form>
 
     </div>
 </template>
@@ -53,15 +67,41 @@
 <script>
     export default {
         name: "WeekCalendarComponent",
+        mounted() {
+            const that = this;
+            axios.get('/user/id', {})
+                .then(function (response) {
+                    that.fields.user_id = response.data;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
         data: function () {
             return {
                 currentDate: new Date(),
                 selectedDate: new Date(2020, 0, 19),
                 offsetDate: new Date(),
-                csrf: document.head.querySelector('meta[name="csrf-token"]').content
+                csrf: document.head.querySelector('meta[name="csrf-token"]').content,
+                fields: {
+                    user_id: ''
+                },
+                errors: {}
             }
         },
         methods: {
+            submit() {
+                this.errors = {};
+                axios.post('/track-time', this.fields).then(response => {
+                    console.log(response);
+
+                }).catch(error => {
+                    if (error.response.status === 422) {
+                        this.errors = error.response.data.errors || {};
+                    }
+                });
+            },
+
             // Turn 0 to 11 into string of month.
             getMonthString: function (month) {
                 switch (month) {

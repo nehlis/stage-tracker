@@ -2011,9 +2011,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "WeekCalendarComponent",
   mounted: function mounted() {
+    // TODO: Highlight curent day.
     var that = this;
     axios.get('/user/id', {}).then(function (response) {
       that.fields.user_id = response.data;
@@ -2028,7 +2031,8 @@ __webpack_require__.r(__webpack_exports__);
       offsetDate: new Date(),
       csrf: document.head.querySelector('meta[name="csrf-token"]').content,
       fields: {
-        user_id: ''
+        user_id: '',
+        inputDate: ''
       },
       errors: {}
     };
@@ -2045,6 +2049,24 @@ __webpack_require__.r(__webpack_exports__);
           _this.errors = error.response.data.errors || {};
         }
       });
+    },
+    calenderClick: function calenderClick(index) {
+      if (this.selectedDate.getDay() === 0) {
+        this.fields.inputDate = this.getOffsetDay(index - this.selectedDate.getDay() - 6).toISOString().split('T')[0];
+      } else {
+        this.fields.inputDate = this.getOffsetDay(index - this.selectedDate.getDay()).toISOString().split('T')[0];
+      }
+
+      this.removeCalendarClasses();
+      document.querySelector(".calendar__item[data-id='" + index + "']").classList.add('active');
+    },
+    removeCalendarClasses: function removeCalendarClasses() {
+      var calendar_items = document.getElementsByClassName("calendar__item");
+
+      for (var i = 0; i < calendar_items.length; i++) {
+        calendar_items[i].classList.remove('active');
+        console.log(calendar_items[0]);
+      }
     },
     // Turn 0 to 11 into string of month.
     getMonthString: function getMonthString(month) {
@@ -2114,6 +2136,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     // Add or remove amount of days provided in parameter.
     updateDay: function updateDay(days) {
+      this.removeCalendarClasses();
+      this.fields.inputDate = null;
       this.selectedDate = new Date(this.selectedDate.setDate(this.selectedDate.getDate() + days));
     },
     // Return the selectedDate offset by amount of days provided in parameter.
@@ -37505,87 +37529,131 @@ var render = function() {
       [
         _vm._l(7, function(i) {
           return _c("div", { staticClass: "col calendar__col" }, [
-            _c("div", { staticClass: "calendar__item" }, [
-              _vm.selectedDate.getDay() === 0
-                ? _c("div", [
-                    _c("h5", { staticClass: "calendar__title" }, [
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(
-                            _vm.getDayString(
-                              _vm
-                                .getOffsetDay(i - _vm.selectedDate.getDay() - 7)
-                                .getDay()
+            _vm.selectedDate.getDay() === 0
+              ? _c(
+                  "div",
+                  {
+                    on: {
+                      click: function($event) {
+                        return _vm.calenderClick(i)
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "calendar__item",
+                        attrs: { "data-id": i }
+                      },
+                      [
+                        _c("h5", { staticClass: "calendar__title" }, [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(
+                                _vm.getDayString(
+                                  _vm
+                                    .getOffsetDay(
+                                      i - _vm.selectedDate.getDay() - 7
+                                    )
+                                    .getDay()
+                                )
+                              ) +
+                              "\n                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "calendar__day" }, [
+                          _c("span", [
+                            _vm._v(
+                              _vm._s(
+                                _vm
+                                  .getOffsetDay(
+                                    i - _vm.selectedDate.getDay() - 7
+                                  )
+                                  .getDate()
+                              ) +
+                                "-" +
+                                _vm._s(
+                                  _vm
+                                    .getOffsetDay(
+                                      i - _vm.selectedDate.getDay() - 7
+                                    )
+                                    .getMonth() + 1
+                                ) +
+                                "-" +
+                                _vm._s(
+                                  _vm
+                                    .getOffsetDay(
+                                      i - _vm.selectedDate.getDay() - 7
+                                    )
+                                    .getFullYear()
+                                )
                             )
-                          ) +
-                          "\n                    "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "calendar__day" }, [
-                      _c("span", [
-                        _vm._v(
-                          _vm._s(
-                            _vm
-                              .getOffsetDay(i - _vm.selectedDate.getDay() - 7)
-                              .getDate()
-                          ) +
-                            "-" +
-                            _vm._s(
-                              _vm
-                                .getOffsetDay(i - _vm.selectedDate.getDay() - 7)
-                                .getMonth() + 1
-                            ) +
-                            "-" +
-                            _vm._s(
-                              _vm
-                                .getOffsetDay(i - _vm.selectedDate.getDay() - 7)
-                                .getFullYear()
+                          ])
+                        ])
+                      ]
+                    )
+                  ]
+                )
+              : _c(
+                  "div",
+                  {
+                    on: {
+                      click: function($event) {
+                        return _vm.calenderClick(i)
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "calendar__item",
+                        attrs: { "data-id": i }
+                      },
+                      [
+                        _c("h5", { staticClass: "calendar__title" }, [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(
+                                _vm.getDayString(
+                                  _vm
+                                    .getOffsetDay(i - _vm.selectedDate.getDay())
+                                    .getDay()
+                                )
+                              ) +
+                              "\n                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "calendar__day" }, [
+                          _c("span", [
+                            _vm._v(
+                              _vm._s(
+                                _vm
+                                  .getOffsetDay(i - _vm.selectedDate.getDay())
+                                  .getDate()
+                              ) +
+                                "-" +
+                                _vm._s(
+                                  _vm
+                                    .getOffsetDay(i - _vm.selectedDate.getDay())
+                                    .getMonth() + 1
+                                ) +
+                                "-" +
+                                _vm._s(
+                                  _vm
+                                    .getOffsetDay(i - _vm.selectedDate.getDay())
+                                    .getFullYear()
+                                )
                             )
-                        )
-                      ])
-                    ])
-                  ])
-                : _c("div", [
-                    _c("h5", { staticClass: "calendar__title" }, [
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(
-                            _vm.getDayString(
-                              _vm
-                                .getOffsetDay(i - _vm.selectedDate.getDay())
-                                .getDay()
-                            )
-                          ) +
-                          "\n                    "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "calendar__day" }, [
-                      _c("span", [
-                        _vm._v(
-                          _vm._s(
-                            _vm
-                              .getOffsetDay(i - _vm.selectedDate.getDay())
-                              .getDate()
-                          ) +
-                            "-" +
-                            _vm._s(
-                              _vm
-                                .getOffsetDay(i - _vm.selectedDate.getDay())
-                                .getMonth() + 1
-                            ) +
-                            "-" +
-                            _vm._s(
-                              _vm
-                                .getOffsetDay(i - _vm.selectedDate.getDay())
-                                .getFullYear()
-                            )
-                        )
-                      ])
-                    ])
-                  ])
-            ])
+                          ])
+                        ])
+                      ]
+                    )
+                  ]
+                )
           ])
         }),
         _vm._v(" "),
@@ -37637,46 +37705,32 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("div", { staticClass: "row calendar__row--fields" }, [
-            _c("div", { staticClass: "col calendar__col" }, [
-              _c(
-                "label",
-                { staticClass: "login__label", attrs: { for: "inputDate" } },
-                [_vm._v("Datum")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.fields.inputDate,
-                    expression: "fields.inputDate"
-                  }
-                ],
-                staticClass: "login__input",
-                attrs: {
-                  type: "date",
-                  id: "inputDate",
-                  "aria-describedby": "inputDate",
-                  placeholder: "Datum"
-                },
-                domProps: { value: _vm.fields.inputDate },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.fields, "inputDate", $event.target.value)
-                  }
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.fields.inputDate,
+                  expression: "fields.inputDate"
                 }
-              }),
-              _vm._v(" "),
-              _vm.errors && _vm.errors.inputDate
-                ? _c("div", { staticClass: "text-danger" }, [
-                    _vm._v(_vm._s(_vm.errors.inputDate[0]))
-                  ])
-                : _vm._e()
-            ]),
+              ],
+              staticClass: "login__input",
+              attrs: {
+                type: "hidden",
+                id: "inputDate",
+                "aria-describedby": "inputDate",
+                placeholder: "Datum"
+              },
+              domProps: { value: _vm.fields.inputDate },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.fields, "inputDate", $event.target.value)
+                }
+              }
+            }),
             _vm._v(" "),
             _c("div", { staticClass: "col calendar__col" }, [
               _c(
@@ -50155,8 +50209,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\stage-tracker\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\stage-tracker\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Projects\stage-tracker\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Projects\stage-tracker\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -408,6 +408,102 @@ main {
   }
 }
 
+.calendar__row {
+  position: relative;
+}
+
+.calendar__item {
+  background: white;
+  box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
+  padding: 15px 15px 30px;
+  position: relative;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.calendar__item.active {
+  background: #025D8C;
+}
+
+.calendar__col {
+  padding: 0 5px !important;
+}
+
+.calendar__small {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  line-height: 1;
+}
+
+.calendar__title {
+  color: black;
+  text-transform: capitalize;
+  font-weight: 700;
+}
+
+.active .calendar__title {
+  color: #025D8C;
+}
+
+.calendar__form {
+  margin-top: 50px;
+  margin-right: -5px;
+  margin-left: -5px;
+}
+
+.calendar__form--inner {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.calendar__form input {
+  margin-bottom: 10px;
+}
+
+.calendar__form .button {
+  width: 100%;
+}
+
+.calendar__toggle-date {
+  border: none;
+  outline: none;
+  background: #025D8C;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+
+.calendar__toggle-date:focus {
+  border: none;
+  outline: none;
+}
+
+.calendar__toggle-date i {
+  font-size: 30px;
+  color: white;
+}
+
+.calendar__toggle-date:hover {
+  background: #001926;
+}
+
+.calendar__next {
+  position: absolute;
+  right: -45px;
+  top: 0;
+  bottom: 0;
+}
+
+.calendar__previous {
+  position: absolute;
+  left: -45px;
+  top: 0;
+  bottom: 0;
+}
+
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors

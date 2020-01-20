@@ -1,64 +1,73 @@
 <template>
-    <div>
-
-        <div class="row">
+    <div class="calendar">
+        <div class="row calendar__row">
             <!-- Loop 7 times -->
-            <div class="col" v-for="i in 7">
+            <div class="col calendar__col" v-for="i in 7">
+                <div class="calendar__item">
+                    <!-- If it's sunday, remove 7 days from current day. -->
+                    <div v-if="selectedDate.getDay() === 0">
+                        <h5 class="calendar__title">
+                            {{getDayString(getOffsetDay((i-selectedDate.getDay()-7)).getDay())}}
+                            {{getOffsetDay((i-selectedDate.getDay()-7)).getDate()}}
+                            {{getMonthString(getOffsetDay(i-selectedDate.getDay()-7).getMonth())}}
+                        </h5>
 
-                <!-- If it's sunday, remove 7 days from current day. -->
-                <div v-if="selectedDate.getDay() === 0">
-                    {{getDayString(getOffsetDay((i-selectedDate.getDay()-7)).getDay())}}
-                    {{getOffsetDay((i-selectedDate.getDay()-7)).getDate()}}
-                    {{getMonthString(getOffsetDay(i-selectedDate.getDay()-7).getMonth())}}
+                        <div class="calendar__small">10-10-2020</div>
+                    </div>
+
+                    <!-- If it's sunday, remove 7 days from current day. -->
+                    <div v-else>
+                        <h5 class="calendar__title">
+                            {{getDayString(getOffsetDay(i-selectedDate.getDay()).getDay())}}
+                            {{getOffsetDay(i-selectedDate.getDay()).getDate()}}
+                            {{getMonthString(getOffsetDay(i-selectedDate.getDay()).getMonth())}}
+                        </h5>
+                    </div>
                 </div>
-
-                <!-- If it's sunday, remove 7 days from current day. -->
-                <div v-else>
-                    {{getDayString(getOffsetDay(i-selectedDate.getDay()).getDay())}}
-                    {{getOffsetDay(i-selectedDate.getDay()).getDate()}}
-                    {{getMonthString(getOffsetDay(i-selectedDate.getDay()).getMonth())}}
-                </div>
-
             </div>
-
+            <button class="calendar__previous calendar__toggle-date" v-on:click="updateDay(-7)"><i class="fas fa-chevron-left"/></button>
+            <button class="calendar__next calendar__toggle-date" v-on:click="updateDay(7)"><i class="fas fa-chevron-right"/></button>
         </div>
 
-        <button v-on:click="updateDay(-7)">Previous week</button>
-        <button v-on:click="updateDay(7)">Next week</button>
+        <form @submit.prevent="submit" class="calendar__form">
+            <div class="calendar__form--inner">
+                <input type="hidden" name="_token" :value="csrf"/>
 
-        <form @submit.prevent="submit">
-            <input type="hidden" name="_token" :value="csrf"/>
+                <!-- TODO: Replace with selectedDate -->
+                <div class="form-group">
+                    <label for="inputDate" class="login__label">Datum</label>
+                    <input type="date" class="login__input" id="inputDate" v-model="fields.inputDate"
+                           aria-describedby="inputDate"
+                           placeholder="Datum">
+                    <div v-if="errors && errors.inputDate" class="text-danger">{{ errors.inputDate[0] }}</div>
+                </div>
 
-            <!-- TODO: Replace with selectedDate -->
-            <div class="form-group">
-                <input type="date" class="form-control" id="inputDate" v-model="fields.inputDate"
-                       aria-describedby="inputDate"
-                       placeholder="Datum">
-                <div v-if="errors && errors.inputDate" class="text-danger">{{ errors.inputDate[0] }}</div>
+                <div class="form-group">
+                    <label for="inputBegin" class="login__label">Begintijd</label>
+                    <input type="time" class="login__input" id="inputBegin" v-model="fields.inputBegin"
+                           aria-describedby="inputBegin"
+                           placeholder="begintijd">
+                    <div v-if="errors && errors.inputBegin" class="text-danger">{{ errors.inputBegin[0] }}</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEnd" class="login__label">Eindtijd</label>
+                    <input type="time" class="login__input" id="inputEnd" v-model="fields.inputEnd"
+                           aria-describedby="inputEnd"
+                           placeholder="eindtijd">
+                    <div v-if="errors && errors.inputEnd" class="text-danger">{{ errors.inputEnd[0] }}</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputBreak" class="login__label">Pauzeduratie</label>
+                    <input type="time" class="login__input" id="inputBreak" v-model="fields.inputBreak"
+                           aria-describedby="inputBreak"
+                           placeholder="pauze">
+                    <div v-if="errors && errors.inputBreak" class="text-danger">{{ errors.inputBreak[0] }}</div>
+                </div>
+
+                <button type="submit" class="button button--primary">Versturen</button>
             </div>
-
-            <div class="form-group">
-                <input type="time" class="form-control" id="inputBegin" v-model="fields.inputBegin"
-                       aria-describedby="inputBegin"
-                       placeholder="begintijd">
-                <div v-if="errors && errors.inputBegin" class="text-danger">{{ errors.inputBegin[0] }}</div>
-            </div>
-
-            <div class="form-group">
-                <input type="time" class="form-control" id="inputEnd" v-model="fields.inputEnd"
-                       aria-describedby="inputEnd"
-                       placeholder="eindtijd">
-                <div v-if="errors && errors.inputEnd" class="text-danger">{{ errors.inputEnd[0] }}</div>
-            </div>
-
-            <div class="form-group">
-                <input type="time" class="form-control" id="inputBreak" v-model="fields.inputBreak"
-                       aria-describedby="inputBreak"
-                       placeholder="pauze">
-                <div v-if="errors && errors.inputBreak" class="text-danger">{{ errors.inputBreak[0] }}</div>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Versturen</button>
         </form>
 
     </div>

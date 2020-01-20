@@ -3,7 +3,7 @@
 @section('title', 'Home | Stage Tracker')
 
 @section('content')
-<div class="container">
+<div class="container content">
 
     <week-calendar-component></week-calendar-component>
 

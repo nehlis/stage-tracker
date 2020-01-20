@@ -233,6 +233,10 @@ ul {
   padding: 0;
 }
 
+main {
+  min-height: calc(100vh - 363px - 60px);
+}
+
 .login {
   padding: 125px 0;
 }

@@ -3,86 +3,73 @@
 @section('title', 'Uw profiel | Stage Tracker')
 
 @section('content')
-<div class="container content">
-    <h1 class="content__heading">Profiel</h1>
+    <div class="container content profile">
+        <div class="row">
+            <div class="col-md-6">
+                <img class="login__image" src="{{asset('images/undraw_account.svg')}}" alt="">
+            </div>
+            <div class="col-md-6">
+                <h1 class="login__heading">Profiel</h1>
+                <form method="post" action="{{route('profiel.update', $user)}}">
+                    @csrf
+                    @method('patch')
 
-    <div class="row">
-        <div class="col-md-12">
-            <form method="post" action="{{route('profiel.update', $user)}}">
-                @csrf
-                @method('patch')
 
-                <div class="form-group row">
-                    <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Naam') }}</label>
+                    <label for="name" class="login__label">{{ __('Naam') }}</label>
 
-                    <div class="col-md-6">
-                        <input id="name" type="text" value="{{ $user->name }}"
-                               class="form-control @error('name') is-invalid @enderror" name="name"
-                               value="{{ old('name') }}" required autocomplete="name" autofocus>
 
-                        @error('name')
+                    <input id="name" type="text" value="{{ $user->name }}"
+                           class="login__input @error('name') is-invalid @enderror" name="name"
+                           value="{{ old('name') }}" required autocomplete="name" autofocus>
+
+                    @error('name')
                         <span class="invalid-feedback" role="alert">
-                                        <strong>{{  ucfirst($message) }}</strong>
-                                    </span>
-                        @enderror
-                    </div>
-                </div>
+                            <strong>{{  ucfirst($message) }}</strong>
+                        </span>
+                    @enderror
 
-                <div class="form-group row">
-                    <label for="email"
-                           class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
 
-                    <div class="col-md-6">
-                        <input id="email" type="email" value="{{ $user->email }}"
-                               class="form-control @error('email') is-invalid @enderror" name="email"
-                               value="{{ old('email') }}" required autocomplete="email">
+                    <label for="email" class="login__label">{{ __('Email') }}</label>
 
-                        @error('email')
-                        <span class="invalid-feedback" role="alert">
+                    <input id="email" type="email" value="{{ $user->email }}"
+                           class="login__input @error('email') is-invalid @enderror" name="email"
+                           value="{{ old('email') }}" required autocomplete="email">
+
+                    @error('email')
+                    <span class="invalid-feedback" role="alert">
                                 <strong>{{  ucfirst($message) }}</strong>
                             </span>
-                        @enderror
-                    </div>
-                </div>
+                    @enderror
 
-                <div class="form-group row">
+
                     <label for="password"
-                           class="col-md-4 col-form-label text-md-right">{{ __('Wachtwoord') }}</label>
+                           class="login__label">{{ __('Wachtwoord') }}</label>
 
-                    <div class="col-md-6">
-                        <input id="password" type="password"
-                               class="form-control @error('password') is-invalid @enderror" name="password"
-                               autocomplete="new-password">
 
-                        @error('password')
-                        <span class="invalid-feedback" role="alert">
+                    <input id="password" type="password"
+                           class="login__input @error('password') is-invalid @enderror" name="password"
+                           autocomplete="new-password">
+
+                    @error('password')
+                    <span class="invalid-feedback" role="alert">
                                 <strong>{{  ucfirst($message) }}</strong>
                             </span>
-                        @enderror
-                    </div>
-                </div>
+                    @enderror
 
-                <div class="form-group row">
+
                     <label for="password-confirm"
-                           class="col-md-4 col-form-label text-md-right">{{ __('Bevestig Wachtwoord') }}</label>
+                           class="login__label">{{ __('Bevestig Wachtwoord') }}</label>
 
-                    <div class="col-md-6">
-                        <input id="password-confirm" type="password" class="form-control"
-                               name="password_confirmation"
-                               autocomplete="new-password">
-                    </div>
-                </div>
 
-                <div class="form-group row mb-0">
-                    <div class="col-md-6 offset-md-4">
-                        <button type="submit" class="btn btn-primary">
-                            Opslaan
-                        </button>
-                    </div>
-                </div>
-{{--            </form>--}}
+                    <input id="password-confirm" type="password" class="login__input"
+                           name="password_confirmation"
+                           autocomplete="new-password">
+
+                    <button type="submit" class="btn btn-primary">
+                        Opslaan
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
-
-</div>
 @endsection

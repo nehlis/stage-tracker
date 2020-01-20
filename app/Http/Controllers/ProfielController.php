@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfielController extends Controller
 {
@@ -15,7 +16,7 @@ class ProfielController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Show the application dashboard.
      *
@@ -23,6 +24,8 @@ class ProfielController extends Controller
      */
     public function index()
     {
-        return view('profiel');
+        $user = Auth::user();
+
+        return view('profiel', compact('user'));
     }
 }

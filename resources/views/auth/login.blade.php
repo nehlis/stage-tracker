@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="login content">
+    <div class="content login">
         <div class="container login__container">
             <div class="row">
                 <div class="col-md-6">

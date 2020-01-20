@@ -1,6 +1,8 @@
 .login {
+    padding: 125px 0;
+
     &__image {
-        max-height: 300px;
+        max-height: 418px;
         
         @media screen and (max-width: $size-small) {
             display: none;

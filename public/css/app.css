@@ -410,6 +410,12 @@ main {
 
 .calendar__row {
   position: relative;
+  padding: 0 60px;
+}
+
+.calendar__row--fields {
+  margin-right: 0 !important;
+  margin-left: 0 !important;
 }
 
 .calendar__item {
@@ -453,7 +459,6 @@ main {
 }
 
 .calendar__form--inner {
-  max-width: 400px;
   margin: 0 auto;
 }
 
@@ -462,7 +467,8 @@ main {
 }
 
 .calendar__form .button {
-  width: 100%;
+  margin-top: 10px;
+  margin-left: 5px;
 }
 
 .calendar__toggle-date {
@@ -492,14 +498,14 @@ main {
 
 .calendar__next {
   position: absolute;
-  right: -45px;
+  right: 15px;
   top: 0;
   bottom: 0;
 }
 
 .calendar__previous {
   position: absolute;
-  left: -45px;
+  left: 15px;
   top: 0;
   bottom: 0;
 }

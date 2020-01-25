@@ -2013,16 +2013,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "WeekCalendarComponent",
   mounted: function mounted() {
-    // TODO: Highlight curent day.
-    var that = this;
-    axios.get('/user/id', {}).then(function (response) {
-      that.fields.user_id = response.data;
-    })["catch"](function (error) {
-      console.log(error);
-    });
+    // Get current user and call getTimes function after.
+    this.getCurrentUser(); // TODO: Highlight curent day.
   },
   data: function data() {
     return {
@@ -2034,6 +2048,7 @@ __webpack_require__.r(__webpack_exports__);
         user_id: '',
         inputDate: ''
       },
+      times: {},
       errors: {}
     };
   },
@@ -2044,9 +2059,34 @@ __webpack_require__.r(__webpack_exports__);
       this.errors = {};
       axios.post('/track-time', this.fields).then(function (response) {
         console.log(response);
+
+        _this.getTimes();
       })["catch"](function (error) {
         if (error.response.status === 422) {
           _this.errors = error.response.data.errors || {};
+        }
+      });
+    },
+    getCurrentUser: function getCurrentUser() {
+      var that = this;
+      axios.get('/user/id', {}).then(function (response) {
+        that.fields.user_id = response.data;
+        that.getTimes();
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getTimes: function getTimes() {
+      var _this2 = this;
+
+      // TODO: Alleen times ophalen van geselecteerde datum.
+      this.errors = {};
+      axios.get('/times/' + this.fields.user_id).then(function (response) {
+        _this2.times = response.data;
+        console.log();
+      })["catch"](function (error) {
+        if (error.response.status === 422) {
+          _this2.errors = error.response.data.errors || {};
         }
       });
     },
@@ -37866,10 +37906,47 @@ var render = function() {
           )
         ])
       ]
-    )
+    ),
+    _vm._v(" "),
+    _c("table", { staticClass: "table" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.times, function(time) {
+          return _c("tr", [
+            _c("td", [_vm._v(_vm._s(time.begin))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(time.end))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(time.break))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(time.date))])
+          ])
+        }),
+        0
+      )
+    ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Begintijd")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Eindtijd")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Pauze")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("4")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

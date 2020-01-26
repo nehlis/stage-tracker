@@ -145,11 +145,11 @@
                     });
             },
             getTimes() {
+                const that = this;
                 // TODO: Alleen times ophalen van geselecteerde datum.
                 this.errors = {};
                 axios.get('/times/' + this.fields.user_id).then(response => {
                     this.times = response.data;
-                    console.log()
 
                 }).catch(error => {
                     if (error.response.status === 422) {
@@ -159,7 +159,8 @@
             },
             calenderClick: function (index) {
                 if (this.selectedDate.getDay() === 0) {
-                    this.fields.inputDate = this.getOffsetDay((index - this.selectedDate.getDay() - 6)).toISOString().split('T')[0];
+                    // TODO toISOString gebruikt een andere timezone, daardoor is dit 1 uur eerder dan utc +1. Dus als je tussen 0 en 1 in de nacht een tijd invoert dan zal die bij de dag daarvoor worden gezet.
+                    this.fields.inputDate = this.getOffsetDay((index - this.selectedDate.getDay() - 7)).toISOString().split('T')[0];
                 } else {
                     this.fields.inputDate = this.getOffsetDay(index - this.selectedDate.getDay()).toISOString().split('T')[0];
                 }
@@ -172,7 +173,6 @@
 
                 for (let i = 0; i < calendar_items.length; i++) {
                     calendar_items[i].classList.remove('active');
-                    console.log(calendar_items[0]);
                 }
             },
             // Turn 0 to 11 into string of month.

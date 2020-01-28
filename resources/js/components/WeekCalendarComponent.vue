@@ -1,5 +1,6 @@
 <template>
     <div class="calendar">
+        <h1 class="calendar__heading">Uren indienen</h1>
         <div class="row calendar__row">
             <!-- Loop 7 times -->
             <div class="col calendar__col" v-for="i in 7">
@@ -80,7 +81,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="button button--primary">Versturen</button>
+                <button type="submit" class="button button--primary calendar__submit">Versturen</button>
             </div>
         </form>
 

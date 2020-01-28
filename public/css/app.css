@@ -412,6 +412,11 @@ main {
   }
 }
 
+.calendar__heading {
+  font-weight: 900;
+  margin-bottom: 40px;
+}
+
 .calendar__row {
   position: relative;
   padding: 0 60px;
@@ -425,8 +430,12 @@ main {
 }
 
 .calendar__row--fields {
-  margin-right: 0 !important;
-  margin-left: 0 !important;
+  margin-right: 5px !important;
+  margin-left: 5px !important;
+}
+
+.calendar__submit {
+  margin-bottom: 50px;
 }
 
 .calendar__item {
@@ -479,6 +488,7 @@ main {
 .calendar__day span {
   color: white;
   font-weight: 700;
+  position: absolute;
 }
 
 @media screen and (max-width: 768px) {
@@ -599,7 +609,8 @@ main {
 
 .calendar__next {
   position: absolute;
-  right: 26px;
+  right: 15px;
+  width: 45px;
   border-radius: 0 4px 4px 0;
   top: 0;
   bottom: 0;
@@ -617,7 +628,8 @@ main {
 .calendar__previous {
   position: absolute;
   border-radius: 4px 0 0 4px;
-  left: 26px;
+  left: 15px;
+  width: 45px;
   top: 0;
   bottom: 0;
 }

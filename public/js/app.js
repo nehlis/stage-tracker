@@ -2032,6 +2032,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "WeekCalendarComponent",
   mounted: function mounted() {
@@ -37568,6 +37577,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "calendar" }, [
+    _c("h1", { staticClass: "calendar__heading" }, [_vm._v("Uren indienen")]),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "row calendar__row" },
@@ -37962,7 +37973,7 @@ var render = function() {
           _c(
             "button",
             {
-              staticClass: "button button--primary",
+              staticClass: "button button--primary calendar__submit",
               attrs: { type: "submit" }
             },
             [_vm._v("Versturen")]

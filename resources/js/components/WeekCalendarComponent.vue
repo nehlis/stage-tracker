@@ -11,6 +11,10 @@
                             {{getDayString(getOffsetDay((i-selectedDate.getDay()-7)).getDay())}}
                         </h5>
 
+                        <h5 class="calendar__title calendar__title--small">
+                            {{getSmallDayString(getOffsetDay((i-selectedDate.getDay()-7)).getDay())}}
+                        </h5>
+
                         <div class="calendar__day">
                             <span>{{getOffsetDay((i-selectedDate.getDay()-7)).getDate()}}-{{getOffsetDay(i-selectedDate.getDay()-7).getMonth() + 1}}-{{getOffsetDay(i-selectedDate.getDay()-7).getFullYear()}}</span>
                         </div>
@@ -22,6 +26,10 @@
                     <div class="calendar__item" :data-id="i">
                         <h5 class="calendar__title">
                             {{getDayString(getOffsetDay((i-selectedDate.getDay())).getDay())}}
+                        </h5>
+
+                        <h5 class="calendar__title calendar__title--small">
+                            {{getSmallDayString(getOffsetDay((i-selectedDate.getDay()-7)).getDay())}}
                         </h5>
 
                         <div class="calendar__day">
@@ -47,7 +55,7 @@
                            aria-describedby="inputDate"
                            placeholder="Datum">
 
-                    <div class="col calendar__col">
+                    <div class="col calendar__col calendar__col--form">
                         <label for="inputBegin" class="login__label">Begintijd</label>
                         <input type="time" class="login__input" id="inputBegin" v-model="fields.inputBegin"
                                aria-describedby="inputBegin"
@@ -55,7 +63,7 @@
                         <div v-if="errors && errors.inputBegin" class="text-danger">{{ errors.inputBegin[0] }}</div>
                     </div>
 
-                    <div class="col calendar__col">
+                    <div class="col calendar__col calendar__col--form">
                         <label for="inputEnd" class="login__label">Eindtijd</label>
                         <input type="time" class="login__input" id="inputEnd" v-model="fields.inputEnd"
                                aria-describedby="inputEnd"
@@ -63,7 +71,7 @@
                         <div v-if="errors && errors.inputEnd" class="text-danger">{{ errors.inputEnd[0] }}</div>
                     </div>
 
-                    <div class="col calendar__col">
+                    <div class="col calendar__col calendar__col--form">
                         <label for="inputBreak" class="login__label">Pauzeduratie</label>
                         <input type="time" class="login__input" id="inputBreak" v-model="fields.inputBreak"
                                aria-describedby="inputBreak"
@@ -189,6 +197,12 @@
                     case 6:
                         return "zaterdag";
                 }
+            },
+            // Get the small part of the day string
+            getSmallDayString: function (day) {
+                let normalDay = this.getDayString(day);
+
+                return normalDay.substr(0, 2);
             },
             // Add or remove amount of days provided in parameter.
             updateDay: function (days) {

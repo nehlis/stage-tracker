@@ -417,6 +417,13 @@ main {
   padding: 0 60px;
 }
 
+@media screen and (max-width: 768px) {
+  .calendar__row {
+    margin: 0 0 100px 0;
+    padding: 0;
+  }
+}
+
 .calendar__row--fields {
   margin-right: 0 !important;
   margin-left: 0 !important;
@@ -431,6 +438,12 @@ main {
   min-height: 50px;
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
+}
+
+@media screen and (max-width: 768px) {
+  .calendar__item {
+    padding-bottom: 45px;
+  }
 }
 
 .calendar__item.active {
@@ -455,13 +468,48 @@ main {
           transform: translateX(50%);
 }
 
+@media screen and (max-width: 768px) {
+  .calendar__day {
+    width: 100%;
+    bottom: 0;
+    border-radius: 0;
+  }
+}
+
 .calendar__day span {
   color: white;
   font-weight: 700;
 }
 
+@media screen and (max-width: 768px) {
+  .calendar__day span {
+    font-size: 12px;
+  }
+}
+
 .calendar__col {
   padding: 0 !important;
+}
+
+.calendar__col:nth-child(6),
+.calendar__col:nth-child(7) {
+  display: none;
+}
+
+.calendar__col--form {
+  margin-right: 20px;
+}
+
+.calendar__col--form:last-child {
+  margin-right: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .calendar__col--form {
+    margin: 0 0 15px 0;
+    -webkit-box-flex: 100% !important;
+            flex: 100% !important;
+  }
 }
 
 .calendar__small {
@@ -477,6 +525,22 @@ main {
   font-weight: 900;
   -webkit-transition: 0.3s ease;
   transition: 0.3s ease;
+}
+
+@media screen and (max-width: 768px) {
+  .calendar__title {
+    display: none;
+  }
+}
+
+.calendar__title--small {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .calendar__title--small {
+    display: block;
+  }
 }
 
 .active .calendar__title {
@@ -513,6 +577,12 @@ main {
   transition: 0.3s ease;
 }
 
+@media screen and (max-width: 768px) {
+  .calendar__toggle-date {
+    border-radius: 0 !important;
+  }
+}
+
 .calendar__toggle-date:focus {
   border: none;
   outline: none;
@@ -535,12 +605,30 @@ main {
   bottom: 0;
 }
 
+@media screen and (max-width: 768px) {
+  .calendar__next {
+    bottom: -44px;
+    top: auto;
+    right: 0;
+    width: 50vw;
+  }
+}
+
 .calendar__previous {
   position: absolute;
   border-radius: 4px 0 0 4px;
   left: 26px;
   top: 0;
   bottom: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .calendar__previous {
+    bottom: -44px;
+    top: auto;
+    left: 0;
+    width: 50vw;
+  }
 }
 
 /*!

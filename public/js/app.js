@@ -2038,9 +2038,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "WeekCalendarComponent",
   mounted: function mounted() {
@@ -2087,8 +2084,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     getTimes: function getTimes() {
       var _this2 = this;
-
-      var that = this; // TODO: Alleen times ophalen van geselecteerde datum.
 
       this.errors = {};
       axios.get('/times/' + this.fields.user_id).then(function (response) {
@@ -37858,7 +37853,7 @@ var render = function() {
                     type: "time",
                     id: "inputBegin",
                     "aria-describedby": "inputBegin",
-                    placeholder: "begintijd"
+                    required: ""
                   },
                   domProps: { value: _vm.fields.inputBegin },
                   on: {
@@ -37903,7 +37898,7 @@ var render = function() {
                     type: "time",
                     id: "inputEnd",
                     "aria-describedby": "inputEnd",
-                    placeholder: "eindtijd"
+                    required: ""
                   },
                   domProps: { value: _vm.fields.inputEnd },
                   on: {
@@ -37948,7 +37943,7 @@ var render = function() {
                     type: "time",
                     id: "inputBreak",
                     "aria-describedby": "inputBreak",
-                    placeholder: "pauze"
+                    required: ""
                   },
                   domProps: { value: _vm.fields.inputBreak },
                   on: {

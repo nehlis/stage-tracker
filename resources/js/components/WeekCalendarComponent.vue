@@ -59,24 +59,21 @@
                     <div class="col calendar__col calendar__col--form">
                         <label for="inputBegin" class="login__label">Begintijd</label>
                         <input type="time" class="login__input" id="inputBegin" v-model="fields.inputBegin"
-                               aria-describedby="inputBegin"
-                               placeholder="begintijd">
+                               aria-describedby="inputBegin" required>
                         <div v-if="errors && errors.inputBegin" class="text-danger">{{ errors.inputBegin[0] }}</div>
                     </div>
 
                     <div class="col calendar__col calendar__col--form">
                         <label for="inputEnd" class="login__label">Eindtijd</label>
                         <input type="time" class="login__input" id="inputEnd" v-model="fields.inputEnd"
-                               aria-describedby="inputEnd"
-                               placeholder="eindtijd">
+                               aria-describedby="inputEnd" required>
                         <div v-if="errors && errors.inputEnd" class="text-danger">{{ errors.inputEnd[0] }}</div>
                     </div>
 
                     <div class="col calendar__col calendar__col--form">
                         <label for="inputBreak" class="login__label">Pauzeduratie</label>
                         <input type="time" class="login__input" id="inputBreak" v-model="fields.inputBreak"
-                               aria-describedby="inputBreak"
-                               placeholder="pauze">
+                               aria-describedby="inputBreak" required>
                         <div v-if="errors && errors.inputBreak" class="text-danger">{{ errors.inputBreak[0] }}</div>
                     </div>
                 </div>

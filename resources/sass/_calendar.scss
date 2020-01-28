@@ -1,4 +1,9 @@
 .calendar {
+    &__heading {
+        font-weight: 900;
+        margin-bottom: 40px;
+    }
+
     &__row {
         position: relative;
         padding: 0 60px;
@@ -9,9 +14,13 @@
         }
 
         &--fields {
-            margin-right: 0 !important;
-            margin-left: 0 !important;
+            margin-right: 5px !important;
+            margin-left: 5px !important;
         }
+    }
+
+    &__submit {
+        margin-bottom: 50px;
     }
 
     &__item {
@@ -55,6 +64,7 @@
         span {
             color: white;
             font-weight: 700;
+            position: absolute;
 
             @media screen and (max-width: $size-small) {
                 font-size: 12px;
@@ -162,7 +172,8 @@
 
     &__next {
         position: absolute;
-        right: 26px;
+        right: 15px;
+        width: 45px;
         border-radius: 0 4px 4px 0;
         top: 0;
         bottom: 0;
@@ -178,7 +189,8 @@
     &__previous {
         position: absolute;
         border-radius: 4px 0 0 4px;
-        left: 26px;
+        left: 15px;
+        width: 45px;
         top: 0;
         bottom: 0;
 

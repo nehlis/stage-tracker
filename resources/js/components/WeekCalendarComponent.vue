@@ -176,7 +176,7 @@
                 // TODO: Delete geselecteerde time.
               console.log("Delete time." + time);
             },
-            calenderClick: function (index) {
+            calendarClick: function (index) {
                 if (this.selectedDate.getDay() === 0) {
                     // TODO toISOString gebruikt een andere timezone, daardoor is dit 1 uur eerder dan utc +1. Dus als je tussen 0 en 1 in de nacht een tijd invoert dan zal die bij de dag daarvoor worden gezet.
                     this.fields.inputDate = this.getOffsetDay((index - this.selectedDate.getDay() - 7)).toISOString().split('T')[0];

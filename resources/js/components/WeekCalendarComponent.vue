@@ -154,8 +154,6 @@
                     });
             },
             getTimes() {
-                const that = this;
-                // TODO: Alleen times ophalen van geselecteerde datum.
                 this.errors = {};
                 axios.get('/times/' + this.fields.user_id).then(response => {
                     this.times = response.data;

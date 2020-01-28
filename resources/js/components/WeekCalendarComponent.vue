@@ -11,6 +11,10 @@
                             {{getDayString(getOffsetDay((i-selectedDate.getDay()-7)).getDay())}}
                         </h5>
 
+                        <h5 class="calendar__title calendar__title--small">
+                            {{getSmallDayString(getOffsetDay((i-selectedDate.getDay()-7)).getDay())}}
+                        </h5>
+
                         <div class="calendar__day">
                             <span>{{getOffsetDay((i-selectedDate.getDay()-7)).getDate()}}-{{getOffsetDay(i-selectedDate.getDay()-7).getMonth() + 1}}-{{getOffsetDay(i-selectedDate.getDay()-7).getFullYear()}}</span>
                         </div>
@@ -22,6 +26,10 @@
                     <div class="calendar__item" :data-id="i">
                         <h5 class="calendar__title">
                             {{getDayString(getOffsetDay((i-selectedDate.getDay())).getDay())}}
+                        </h5>
+
+                        <h5 class="calendar__title calendar__title--small">
+                            {{getSmallDayString(getOffsetDay((i-selectedDate.getDay()-7)).getDay())}}
                         </h5>
 
                         <div class="calendar__day">
@@ -47,7 +55,7 @@
                            aria-describedby="inputDate"
                            placeholder="Datum">
 
-                    <div class="col calendar__col">
+                    <div class="col calendar__col calendar__col--form">
                         <label for="inputBegin" class="login__label">Begintijd</label>
                         <input type="time" class="login__input" id="inputBegin" v-model="fields.inputBegin"
                                aria-describedby="inputBegin"
@@ -55,7 +63,7 @@
                         <div v-if="errors && errors.inputBegin" class="text-danger">{{ errors.inputBegin[0] }}</div>
                     </div>
 
-                    <div class="col calendar__col">
+                    <div class="col calendar__col calendar__col--form">
                         <label for="inputEnd" class="login__label">Eindtijd</label>
                         <input type="time" class="login__input" id="inputEnd" v-model="fields.inputEnd"
                                aria-describedby="inputEnd"
@@ -63,7 +71,7 @@
                         <div v-if="errors && errors.inputEnd" class="text-danger">{{ errors.inputEnd[0] }}</div>
                     </div>
 
-                    <div class="col calendar__col">
+                    <div class="col calendar__col calendar__col--form">
                         <label for="inputBreak" class="login__label">Pauzeduratie</label>
                         <input type="time" class="login__input" id="inputBreak" v-model="fields.inputBreak"
                                aria-describedby="inputBreak"
@@ -76,6 +84,25 @@
             </div>
         </form>
 
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Begintijd</th>
+                <th scope="col">Eindtijd</th>
+                <th scope="col">Pauze</th>
+                <th scope="col">4</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="time in times" v-if="time.date === fields.inputDate">
+                <td>{{time.begin}}</td>
+                <td>{{time.end}}</td>
+                <td>{{time.break}}</td>
+                <td>{{time.date}}</td>
+            </tr>
+            </tbody>
+        </table>
+
     </div>
 </template>
 
@@ -83,17 +110,9 @@
     export default {
         name: "WeekCalendarComponent",
         mounted() {
-            
+            // Get current user and call getTimes function after.
+            this.getCurrentUser();
             // TODO: Highlight curent day.
-
-            const that = this;
-            axios.get('/user/id', {})
-                .then(function (response) {
-                    that.fields.user_id = response.data;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
         },
         data: function () {
             return {
@@ -105,6 +124,7 @@
                     user_id: '',
                     inputDate: ''
                 },
+                times: {},
                 errors: {}
             }
         },
@@ -113,6 +133,31 @@
                 this.errors = {};
                 axios.post('/track-time', this.fields).then(response => {
                     console.log(response);
+                    this.getTimes();
+
+                }).catch(error => {
+                    if (error.response.status === 422) {
+                        this.errors = error.response.data.errors || {};
+                    }
+                });
+            },
+            getCurrentUser() {
+                const that = this;
+                axios.get('/user/id', {})
+                    .then(function (response) {
+                        that.fields.user_id = response.data;
+                        that.getTimes();
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            getTimes() {
+                const that = this;
+                // TODO: Alleen times ophalen van geselecteerde datum.
+                this.errors = {};
+                axios.get('/times/' + this.fields.user_id).then(response => {
+                    this.times = response.data;
 
                 }).catch(error => {
                     if (error.response.status === 422) {
@@ -122,23 +167,20 @@
             },
             calenderClick: function (index) {
                 if (this.selectedDate.getDay() === 0) {
-                    this.fields.inputDate = this.getOffsetDay((index - this.selectedDate.getDay() - 6)).toISOString().split('T')[0];
+                    // TODO toISOString gebruikt een andere timezone, daardoor is dit 1 uur eerder dan utc +1. Dus als je tussen 0 en 1 in de nacht een tijd invoert dan zal die bij de dag daarvoor worden gezet.
+                    this.fields.inputDate = this.getOffsetDay((index - this.selectedDate.getDay() - 7)).toISOString().split('T')[0];
                 } else {
                     this.fields.inputDate = this.getOffsetDay(index - this.selectedDate.getDay()).toISOString().split('T')[0];
                 }
 
                 this.removeCalendarClasses();
-
                 document.querySelector(".calendar__item[data-id='" + index + "']").classList.add('active');
-
             },
             removeCalendarClasses: function () {
                 let calendar_items = document.getElementsByClassName("calendar__item");
 
-                for (let i = 0; i < calendar_items.length; i++)
-                {
+                for (let i = 0; i < calendar_items.length; i++) {
                     calendar_items[i].classList.remove('active');
-                    console.log(calendar_items[0]);
                 }
             },
             // Turn 0 to 11 into string of month.
@@ -189,6 +231,12 @@
                     case 6:
                         return "zaterdag";
                 }
+            },
+            // Get the small part of the day string
+            getSmallDayString: function (day) {
+                let normalDay = this.getDayString(day);
+
+                return normalDay.substr(0, 2);
             },
             // Add or remove amount of days provided in parameter.
             updateDay: function (days) {

@@ -3,6 +3,11 @@
         position: relative;
         padding: 0 60px;
 
+        @media screen and (max-width: $size-small) {
+            margin: 0 0 100px 0;
+            padding: 0;
+        }
+
         &--fields {
             margin-right: 0 !important;
             margin-left: 0 !important;
@@ -17,6 +22,10 @@
         cursor: pointer;
         min-height: 50px;
         transition: .3s ease;
+
+        @media screen and (max-width: $size-small) {
+            padding-bottom: 45px;
+        }
 
         &.active {
             background: $blue;
@@ -36,14 +45,42 @@
         justify-content: center;
         transform: translateX(50%);
 
+        @media screen and (max-width: $size-small) {
+            width: 100%;
+            bottom: 0;
+            border-radius: 0;
+        }
+
+
         span {
             color: white;
             font-weight: 700;
+
+            @media screen and (max-width: $size-small) {
+                font-size: 12px;
+            }
         }
     }
 
     &__col {
         padding: 0 !important;
+        
+        &:nth-child(6), &:nth-child(7) {
+            display: none;
+        }
+
+        &--form {
+            margin-right: 20px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            @media screen and (max-width: $size-small) {
+                margin: 0 0 15px 0;
+                flex: 100% !important;
+            }
+        }
     }
 
     &__small {
@@ -58,6 +95,18 @@
         text-transform: capitalize;
         font-weight: 900;
         transition: .3s ease;
+
+        @media screen and (max-width: $size-small) {
+            display: none;
+        }
+
+        &--small {
+            display: none;
+
+            @media screen and (max-width: $size-small) {
+                display: block;
+            }
+        }
 
         .active & {
             color: white;
@@ -92,6 +141,10 @@
         box-shadow: 0 0 0 1px rgba(63, 63, 68, .05), 0 1px 3px 0 rgba(63, 63, 68, .15);
         transition: .3s ease;
 
+        @media screen and (max-width: $size-small) {
+            border-radius: 0 !important;
+        }
+
         &:focus {
             border: none;
             outline: none;
@@ -113,6 +166,13 @@
         border-radius: 0 4px 4px 0;
         top: 0;
         bottom: 0;
+
+        @media screen and (max-width: $size-small) {
+            bottom: -44px;
+            top: auto;
+            right: 0;
+            width: 50vw;
+        }
     }
 
     &__previous {
@@ -121,5 +181,12 @@
         left: 26px;
         top: 0;
         bottom: 0;
+
+        @media screen and (max-width: $size-small) {
+            bottom: -44px;
+            top: auto;
+            left: 0;
+            width: 50vw;
+        }
     }
 }

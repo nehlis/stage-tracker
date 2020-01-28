@@ -2013,16 +2013,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "WeekCalendarComponent",
   mounted: function mounted() {
-    // TODO: Highlight curent day.
-    var that = this;
-    axios.get('/user/id', {}).then(function (response) {
-      that.fields.user_id = response.data;
-    })["catch"](function (error) {
-      console.log(error);
-    });
+    // Get current user and call getTimes function after.
+    this.getCurrentUser(); // TODO: Highlight curent day.
   },
   data: function data() {
     return {
@@ -2034,6 +2048,7 @@ __webpack_require__.r(__webpack_exports__);
         user_id: '',
         inputDate: ''
       },
+      times: {},
       errors: {}
     };
   },
@@ -2044,15 +2059,41 @@ __webpack_require__.r(__webpack_exports__);
       this.errors = {};
       axios.post('/track-time', this.fields).then(function (response) {
         console.log(response);
+
+        _this.getTimes();
       })["catch"](function (error) {
         if (error.response.status === 422) {
           _this.errors = error.response.data.errors || {};
         }
       });
     },
+    getCurrentUser: function getCurrentUser() {
+      var that = this;
+      axios.get('/user/id', {}).then(function (response) {
+        that.fields.user_id = response.data;
+        that.getTimes();
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    getTimes: function getTimes() {
+      var _this2 = this;
+
+      var that = this; // TODO: Alleen times ophalen van geselecteerde datum.
+
+      this.errors = {};
+      axios.get('/times/' + this.fields.user_id).then(function (response) {
+        _this2.times = response.data;
+      })["catch"](function (error) {
+        if (error.response.status === 422) {
+          _this2.errors = error.response.data.errors || {};
+        }
+      });
+    },
     calenderClick: function calenderClick(index) {
       if (this.selectedDate.getDay() === 0) {
-        this.fields.inputDate = this.getOffsetDay(index - this.selectedDate.getDay() - 6).toISOString().split('T')[0];
+        // TODO toISOString gebruikt een andere timezone, daardoor is dit 1 uur eerder dan utc +1. Dus als je tussen 0 en 1 in de nacht een tijd invoert dan zal die bij de dag daarvoor worden gezet.
+        this.fields.inputDate = this.getOffsetDay(index - this.selectedDate.getDay() - 7).toISOString().split('T')[0];
       } else {
         this.fields.inputDate = this.getOffsetDay(index - this.selectedDate.getDay()).toISOString().split('T')[0];
       }
@@ -2065,7 +2106,6 @@ __webpack_require__.r(__webpack_exports__);
 
       for (var i = 0; i < calendar_items.length; i++) {
         calendar_items[i].classList.remove('active');
-        console.log(calendar_items[0]);
       }
     },
     // Turn 0 to 11 into string of month.
@@ -2133,6 +2173,11 @@ __webpack_require__.r(__webpack_exports__);
         case 6:
           return "zaterdag";
       }
+    },
+    // Get the small part of the day string
+    getSmallDayString: function getSmallDayString(day) {
+      var normalDay = this.getDayString(day);
+      return normalDay.substr(0, 2);
     },
     // Add or remove amount of days provided in parameter.
     updateDay: function updateDay(days) {
@@ -37563,6 +37608,29 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
+                        _c(
+                          "h5",
+                          {
+                            staticClass:
+                              "calendar__title calendar__title--small"
+                          },
+                          [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(
+                                  _vm.getSmallDayString(
+                                    _vm
+                                      .getOffsetDay(
+                                        i - _vm.selectedDate.getDay() - 7
+                                      )
+                                      .getDay()
+                                  )
+                                ) +
+                                "\n                    "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
                         _c("div", { staticClass: "calendar__day" }, [
                           _c("span", [
                             _vm._v(
@@ -37626,6 +37694,29 @@ var render = function() {
                               "\n                    "
                           )
                         ]),
+                        _vm._v(" "),
+                        _c(
+                          "h5",
+                          {
+                            staticClass:
+                              "calendar__title calendar__title--small"
+                          },
+                          [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(
+                                  _vm.getSmallDayString(
+                                    _vm
+                                      .getOffsetDay(
+                                        i - _vm.selectedDate.getDay() - 7
+                                      )
+                                      .getDay()
+                                  )
+                                ) +
+                                "\n                    "
+                            )
+                          ]
+                        ),
                         _vm._v(" "),
                         _c("div", { staticClass: "calendar__day" }, [
                           _c("span", [
@@ -37732,128 +37823,140 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _c("div", { staticClass: "col calendar__col" }, [
-              _c(
-                "label",
-                { staticClass: "login__label", attrs: { for: "inputBegin" } },
-                [_vm._v("Begintijd")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.fields.inputBegin,
-                    expression: "fields.inputBegin"
-                  }
-                ],
-                staticClass: "login__input",
-                attrs: {
-                  type: "time",
-                  id: "inputBegin",
-                  "aria-describedby": "inputBegin",
-                  placeholder: "begintijd"
-                },
-                domProps: { value: _vm.fields.inputBegin },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+            _c(
+              "div",
+              { staticClass: "col calendar__col calendar__col--form" },
+              [
+                _c(
+                  "label",
+                  { staticClass: "login__label", attrs: { for: "inputBegin" } },
+                  [_vm._v("Begintijd")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.fields.inputBegin,
+                      expression: "fields.inputBegin"
                     }
-                    _vm.$set(_vm.fields, "inputBegin", $event.target.value)
+                  ],
+                  staticClass: "login__input",
+                  attrs: {
+                    type: "time",
+                    id: "inputBegin",
+                    "aria-describedby": "inputBegin",
+                    placeholder: "begintijd"
+                  },
+                  domProps: { value: _vm.fields.inputBegin },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.fields, "inputBegin", $event.target.value)
+                    }
                   }
-                }
-              }),
-              _vm._v(" "),
-              _vm.errors && _vm.errors.inputBegin
-                ? _c("div", { staticClass: "text-danger" }, [
-                    _vm._v(_vm._s(_vm.errors.inputBegin[0]))
-                  ])
-                : _vm._e()
-            ]),
+                }),
+                _vm._v(" "),
+                _vm.errors && _vm.errors.inputBegin
+                  ? _c("div", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.errors.inputBegin[0]))
+                    ])
+                  : _vm._e()
+              ]
+            ),
             _vm._v(" "),
-            _c("div", { staticClass: "col calendar__col" }, [
-              _c(
-                "label",
-                { staticClass: "login__label", attrs: { for: "inputEnd" } },
-                [_vm._v("Eindtijd")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.fields.inputEnd,
-                    expression: "fields.inputEnd"
-                  }
-                ],
-                staticClass: "login__input",
-                attrs: {
-                  type: "time",
-                  id: "inputEnd",
-                  "aria-describedby": "inputEnd",
-                  placeholder: "eindtijd"
-                },
-                domProps: { value: _vm.fields.inputEnd },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+            _c(
+              "div",
+              { staticClass: "col calendar__col calendar__col--form" },
+              [
+                _c(
+                  "label",
+                  { staticClass: "login__label", attrs: { for: "inputEnd" } },
+                  [_vm._v("Eindtijd")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.fields.inputEnd,
+                      expression: "fields.inputEnd"
                     }
-                    _vm.$set(_vm.fields, "inputEnd", $event.target.value)
+                  ],
+                  staticClass: "login__input",
+                  attrs: {
+                    type: "time",
+                    id: "inputEnd",
+                    "aria-describedby": "inputEnd",
+                    placeholder: "eindtijd"
+                  },
+                  domProps: { value: _vm.fields.inputEnd },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.fields, "inputEnd", $event.target.value)
+                    }
                   }
-                }
-              }),
-              _vm._v(" "),
-              _vm.errors && _vm.errors.inputEnd
-                ? _c("div", { staticClass: "text-danger" }, [
-                    _vm._v(_vm._s(_vm.errors.inputEnd[0]))
-                  ])
-                : _vm._e()
-            ]),
+                }),
+                _vm._v(" "),
+                _vm.errors && _vm.errors.inputEnd
+                  ? _c("div", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.errors.inputEnd[0]))
+                    ])
+                  : _vm._e()
+              ]
+            ),
             _vm._v(" "),
-            _c("div", { staticClass: "col calendar__col" }, [
-              _c(
-                "label",
-                { staticClass: "login__label", attrs: { for: "inputBreak" } },
-                [_vm._v("Pauzeduratie")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.fields.inputBreak,
-                    expression: "fields.inputBreak"
-                  }
-                ],
-                staticClass: "login__input",
-                attrs: {
-                  type: "time",
-                  id: "inputBreak",
-                  "aria-describedby": "inputBreak",
-                  placeholder: "pauze"
-                },
-                domProps: { value: _vm.fields.inputBreak },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+            _c(
+              "div",
+              { staticClass: "col calendar__col calendar__col--form" },
+              [
+                _c(
+                  "label",
+                  { staticClass: "login__label", attrs: { for: "inputBreak" } },
+                  [_vm._v("Pauzeduratie")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.fields.inputBreak,
+                      expression: "fields.inputBreak"
                     }
-                    _vm.$set(_vm.fields, "inputBreak", $event.target.value)
+                  ],
+                  staticClass: "login__input",
+                  attrs: {
+                    type: "time",
+                    id: "inputBreak",
+                    "aria-describedby": "inputBreak",
+                    placeholder: "pauze"
+                  },
+                  domProps: { value: _vm.fields.inputBreak },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.fields, "inputBreak", $event.target.value)
+                    }
                   }
-                }
-              }),
-              _vm._v(" "),
-              _vm.errors && _vm.errors.inputBreak
-                ? _c("div", { staticClass: "text-danger" }, [
-                    _vm._v(_vm._s(_vm.errors.inputBreak[0]))
-                  ])
-                : _vm._e()
-            ])
+                }),
+                _vm._v(" "),
+                _vm.errors && _vm.errors.inputBreak
+                  ? _c("div", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.errors.inputBreak[0]))
+                    ])
+                  : _vm._e()
+              ]
+            )
           ]),
           _vm._v(" "),
           _c(
@@ -37866,10 +37969,49 @@ var render = function() {
           )
         ])
       ]
-    )
+    ),
+    _vm._v(" "),
+    _c("table", { staticClass: "table" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.times, function(time) {
+          return time.date === _vm.fields.inputDate
+            ? _c("tr", [
+                _c("td", [_vm._v(_vm._s(time.begin))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(time.end))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(time.break))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(time.date))])
+              ])
+            : _vm._e()
+        }),
+        0
+      )
+    ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Begintijd")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Eindtijd")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Pauze")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("4")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -50209,8 +50351,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Projects\stage-tracker\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Projects\stage-tracker\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\stage-tracker\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\stage-tracker\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

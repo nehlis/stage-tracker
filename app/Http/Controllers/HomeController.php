@@ -32,7 +32,7 @@ class HomeController extends Controller
      *
      * @param Request $request
      *
-     * @return Time
+     * @return Request
      */
     public function trackTime(Request $request)
     {
@@ -42,7 +42,7 @@ class HomeController extends Controller
         $timeTracked->begin = $request->inputBegin;
         $timeTracked->end = $request->inputEnd;
         $timeTracked->break = $request->inputBreak;
-        $timeTracked->user_id = '1';
+        $timeTracked->user_id = $request->user_id;
 
         $timeTracked->save();
 

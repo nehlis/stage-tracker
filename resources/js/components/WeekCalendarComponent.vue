@@ -6,7 +6,7 @@
             <div class="col calendar__col" v-for="i in 7">
 
                 <!-- If it's sunday, remove 7 days from current day. -->
-                <div v-if="selectedDate.getDay() === 0" v-on:click="calenderClick(i)">
+                <div v-if="selectedDate.getDay() === 0" v-on:click="calendarClick(i)">
                     <div class="calendar__item" :data-id="i">
                         <h5 class="calendar__title">
                             {{getDayString(getOffsetDay((i-selectedDate.getDay()-7)).getDay())}}
@@ -23,7 +23,7 @@
                 </div>
 
                 <!-- Else show normal week -->
-                <div v-else v-on:click="calenderClick(i)">
+                <div v-else v-on:click="calendarClick(i)">
                     <div class="calendar__item" :data-id="i">
                         <h5 class="calendar__title">
                             {{getDayString(getOffsetDay((i-selectedDate.getDay())).getDay())}}
@@ -161,7 +161,7 @@
                     }
                 });
             },
-            calenderClick: function (index) {
+            calendarClick: function (index) {
                 if (this.selectedDate.getDay() === 0) {
                     // TODO toISOString gebruikt een andere timezone, daardoor is dit 1 uur eerder dan utc +1. Dus als je tussen 0 en 1 in de nacht een tijd invoert dan zal die bij de dag daarvoor worden gezet.
                     this.fields.inputDate = this.getOffsetDay((index - this.selectedDate.getDay() - 7)).toISOString().split('T')[0];

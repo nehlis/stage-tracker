@@ -86,7 +86,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="time in times">
+            <tr v-for="time in times" v-if="time.date === fields.inputDate">
                 <td>{{time.begin}}</td>
                 <td>{{time.end}}</td>
                 <td>{{time.break}}</td>

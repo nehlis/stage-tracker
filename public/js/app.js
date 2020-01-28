@@ -2079,11 +2079,11 @@ __webpack_require__.r(__webpack_exports__);
     getTimes: function getTimes() {
       var _this2 = this;
 
-      // TODO: Alleen times ophalen van geselecteerde datum.
+      var that = this; // TODO: Alleen times ophalen van geselecteerde datum.
+
       this.errors = {};
       axios.get('/times/' + this.fields.user_id).then(function (response) {
         _this2.times = response.data;
-        console.log();
       })["catch"](function (error) {
         if (error.response.status === 422) {
           _this2.errors = error.response.data.errors || {};
@@ -2092,7 +2092,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     calenderClick: function calenderClick(index) {
       if (this.selectedDate.getDay() === 0) {
-        this.fields.inputDate = this.getOffsetDay(index - this.selectedDate.getDay() - 6).toISOString().split('T')[0];
+        // TODO toISOString gebruikt een andere timezone, daardoor is dit 1 uur eerder dan utc +1. Dus als je tussen 0 en 1 in de nacht een tijd invoert dan zal die bij de dag daarvoor worden gezet.
+        this.fields.inputDate = this.getOffsetDay(index - this.selectedDate.getDay() - 7).toISOString().split('T')[0];
       } else {
         this.fields.inputDate = this.getOffsetDay(index - this.selectedDate.getDay()).toISOString().split('T')[0];
       }
@@ -2105,7 +2106,6 @@ __webpack_require__.r(__webpack_exports__);
 
       for (var i = 0; i < calendar_items.length; i++) {
         calendar_items[i].classList.remove('active');
-        console.log(calendar_items[0]);
       }
     },
     // Turn 0 to 11 into string of month.
@@ -37914,15 +37914,17 @@ var render = function() {
       _c(
         "tbody",
         _vm._l(_vm.times, function(time) {
-          return _c("tr", [
-            _c("td", [_vm._v(_vm._s(time.begin))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(time.end))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(time.break))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(time.date))])
-          ])
+          return time.date === _vm.fields.inputDate
+            ? _c("tr", [
+                _c("td", [_vm._v(_vm._s(time.begin))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(time.end))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(time.break))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(time.date))])
+              ])
+            : _vm._e()
         }),
         0
       )

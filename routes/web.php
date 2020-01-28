@@ -13,6 +13,10 @@ Route::patch('/profiel/{user}',
 
 Route::post('/track-time', 'HomeController@trackTime');
 
+Route::get('/times/{user}',
+    ['as' => 'times', 'uses' => 'TimesController@getTimes']
+);
+
 Route::get('/user/id', function () {
     return Auth::user()->id;
 });

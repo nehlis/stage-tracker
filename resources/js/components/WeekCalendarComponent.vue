@@ -88,7 +88,7 @@
                 <th scope="col">Begintijd</th>
                 <th scope="col">Eindtijd</th>
                 <th scope="col">Pauze</th>
-                <th scope="col">4</th>
+                <th scope="col">Actie</th>
             </tr>
             </thead>
             <tbody>
@@ -96,7 +96,7 @@
                 <td>{{time.begin}}</td>
                 <td>{{time.end}}</td>
                 <td>{{time.break}}</td>
-                <td>{{time.date}}</td>
+                <td><div v-on:click="deleteTime(time)" class="btn btn-danger"><i class="far fa-trash-alt"></i></div> </td>
             </tr>
             </tbody>
         </table>
@@ -105,6 +105,10 @@
 </template>
 
 <script>
+
+    import Toasted from 'vue-toasted';
+    Vue.use(Toasted);
+
     export default {
         name: "WeekCalendarComponent",
         mounted() {
@@ -130,6 +134,13 @@
             submit() {
                 this.errors = {};
                 axios.post('/track-time', this.fields).then(response => {
+
+                    let toast = this.$toasted.show("<i class=\"far fa-calendar-check\"></i> Opgeslagen", {
+                        theme: "toasted-primary",
+                        position: "top-left",
+                        duration : 2000
+                    });
+
                     console.log(response);
                     this.getTimes();
 
@@ -161,7 +172,11 @@
                     }
                 });
             },
-            calendarClick: function (index) {
+            deleteTime(time) {
+                // TODO: Delete geselecteerde time.
+              console.log("Delete time." + time);
+            },
+            calenderClick: function (index) {
                 if (this.selectedDate.getDay() === 0) {
                     // TODO toISOString gebruikt een andere timezone, daardoor is dit 1 uur eerder dan utc +1. Dus als je tussen 0 en 1 in de nacht een tijd invoert dan zal die bij de dag daarvoor worden gezet.
                     this.fields.inputDate = this.getOffsetDay((index - this.selectedDate.getDay() - 7)).toISOString().split('T')[0];
